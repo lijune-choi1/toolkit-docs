@@ -1,0 +1,54 @@
+<svg width="510" height="451" viewBox="0 0 510 451" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1 20C1 8.95431 9.9543 0 21 0H154C165.046 0 174 8.9543 174 20V48H1V20Z" fill="#D5ECFE"/>
+<path d="M510 68C510 56.9543 501.046 48 490 48L3.05176e-05 47.9999L4.7773e-06 431C4.03495e-06 442.046 8.95431 451 20 451L490 451C501.046 451 510 442.046 510 431L510 68Z" fill="url(#paint0_linear_198_14215)"/>
+<g filter="url(#filter0_i_198_14215)">
+<path d="M186 294H163V317H186V294Z" fill="#3580BA"/>
+<path d="M186 271H163V294H186V271Z" fill="#3580BA"/>
+<path d="M186 248H163V271H186V248Z" fill="#3580BA"/>
+<path d="M186 225H163V248H186V225Z" fill="#3580BA"/>
+<path d="M232 225H209V248H232V225Z" fill="#3580BA"/>
+<path d="M255 225H232V248H255V225Z" fill="#3580BA"/>
+<path d="M255 248H232V271H255V248Z" fill="#3580BA"/>
+<path d="M255 271H232V294H255V271Z" fill="#3580BA"/>
+<path d="M255 294H232V317H255V294Z" fill="#3580BA"/>
+<path d="M255 202H232V225H255V202Z" fill="#3580BA"/>
+<path d="M255 179H232V202H255V179Z" fill="#3580BA"/>
+<path d="M255 156H232V179H255V156Z" fill="#3580BA"/>
+<path d="M347 225H324V248H347V225Z" fill="#3580BA"/>
+<path d="M347 202H324V225H347V202Z" fill="#3580BA"/>
+<path d="M347 271H324V294H347V271Z" fill="#3580BA"/>
+<path d="M347 294H324V317H347V294Z" fill="#3580BA"/>
+<path d="M301 202H278V225H301V202Z" fill="#3580BA"/>
+<path d="M347 248H324V271H347V248Z" fill="#3580BA"/>
+<path d="M347 179H324V202H347V179Z" fill="#3580BA"/>
+<path d="M347 156H324V179H347V156Z" fill="#3580BA"/>
+<path d="M278 156H255V179H278V156Z" fill="#3580BA"/>
+<path d="M301 156H278V179H301V156Z" fill="#3580BA"/>
+<path d="M324 156H301V179H324V156Z" fill="#3580BA"/>
+<path d="M186 317H163V340H186V317Z" fill="#3580BA"/>
+<path d="M301 317H278V340H301V317Z" fill="#3580BA"/>
+<path d="M232 317H209V340H232V317Z" fill="#3580BA"/>
+<path d="M209 225H186V248H209V225Z" fill="#3580BA"/>
+<path d="M209 317H186V340H209V317Z" fill="#3580BA"/>
+<path d="M255 317H232V340H255V317Z" fill="#3580BA"/>
+<path d="M278 317H255V340H278V317Z" fill="#3580BA"/>
+<path d="M347 317H324V340H347V317Z" fill="#3580BA"/>
+<path d="M324 317H301V340H324V317Z" fill="#3580BA"/>
+</g>
+<defs>
+<filter id="filter0_i_198_14215" x="163" y="156" width="184" height="188" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="4"/>
+<feGaussianBlur stdDeviation="2"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="shape" result="effect1_innerShadow_198_14215"/>
+</filter>
+<linearGradient id="paint0_linear_198_14215" x1="255" y1="48" x2="255" y2="451" gradientUnits="userSpaceOnUse">
+<stop stop-color="#E0F1FE"/>
+<stop offset="1" stop-color="#0091FF"/>
+</linearGradient>
+</defs>
+</svg>

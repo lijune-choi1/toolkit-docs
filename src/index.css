@@ -1,0 +1,29 @@
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: forma-djr-display, sans-serif;
+
+  }
+
+
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    font-weight:600;
+  }
+  
+  button {
+    cursor: pointer;
+    border: none;
+    background: none;
+  }
+  
+  input, select, textarea {
+    font-family: inherit;
+  }
