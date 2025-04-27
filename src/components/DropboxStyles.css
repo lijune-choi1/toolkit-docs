@@ -233,14 +233,8 @@
 .folder-icon {
   width: 200px;
   height: 200px;
-  background-image: url('/public/assets/assets-folder2.svg');
   background-size: contain;
   background-repeat: no-repeat;
-}
-
-/* Default folders will use the base folder icon */
-.folder-icon:not([style*="background-image"]) {
-  background-image: url('/public/assets/asset-folder.svg');
 }
 
 
