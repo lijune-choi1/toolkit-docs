@@ -8,6 +8,18 @@ import PDFPost from './PDFPost';
 import Sidebar from './Sidebar';
 import './DropboxStyles.css';
 import { fetchAllContent, getCategories, clearCache, getCategoryHierarchy } from '../googleSheetService';
+// Add SVG imports for folder icons
+// Define paths to SVG files using PUBLIC_URL
+const baseFolderIcon = `${process.env.PUBLIC_URL}/assets/asset-folder.svg`;
+const corporateFolderIcon = `${process.env.PUBLIC_URL}/assets/asset-folder-corporate.svg`;
+const financeFolderIcon = `${process.env.PUBLIC_URL}/assets/asset-folder-finance.svg`;
+const graphicdesignFolderIcon = `${process.env.PUBLIC_URL}/assets/asset-folder-graphicdesign.svg`;
+const jobsearchFolderIcon = `${process.env.PUBLIC_URL}/assets/asset-folder-jobsearch.svg`;
+const marketingFolderIcon = `${process.env.PUBLIC_URL}/assets/asset-folder-marketing.svg`;
+const portfolioFolderIcon = `${process.env.PUBLIC_URL}/assets/asset-folder-portfolio.svg`;
+const schoolFolderIcon = `${process.env.PUBLIC_URL}/assets/asset-folder-school.svg`;
+const uiuxFolderIcon = `${process.env.PUBLIC_URL}/assets/asset-folder-uiux.svg`;
+const resourcesFolderIcon = `${process.env.PUBLIC_URL}/assets/assets-folder-resources.svg`;
 
 const DropboxApp = () => {
   // State for file system - start with a completely empty structure
@@ -589,41 +601,66 @@ const DropboxApp = () => {
     setSubcategories([]);
   };
 
+  // Helper function to determine parent category for any path
+const getParentCategory = (path) => {
+  const pathSegments = path.split('/').filter(segment => segment);
+  
+  // If no segments, return default
+  if (!pathSegments.length) return 'default';
+  
+  // First segment is always the parent category
+  const parentCategoryName = pathSegments[0].toLowerCase();
+  
+  // Map to the three main categories
+  if (['corporate', 'finance', 'marketing'].includes(parentCategoryName)) {
+    return 'Business';
+  } else if (['job search', 'navigating school', 'portfolio'].includes(parentCategoryName)) {
+    return 'Career Preparation';
+  } else if (['graphic design', 'uiux', 'resources'].includes(parentCategoryName)) {
+    return 'Design';
+  }
+  
+  // Return the first segment as fallback
+  return pathSegments[0];
+};
+
+
   // Get icon for file type
  // Get icon for file type
+// Updated getFileIcon function using imported SVGs
 const getFileIcon = (type, item) => {
   // Handle folders with specific category SVGs
   if (type === 'folder') {
     // Get folder name or path to determine the category
     const folderName = item.name ? item.name.toLowerCase() : '';
     const folderPath = item.path ? item.path.toLowerCase() : '';
-    console.log('getfileicon');
+    
     // Match folder name to corresponding SVG file
     if (folderName.includes('corporate') || folderPath.includes('corporate')) {
-      return <div className="folder-icon" style={{ backgroundImage: `url('/public/assets/asset-folder-corporate.svg')` }}></div>;
+      return <div className="folder-icon" style={{ backgroundImage: `url(${corporateFolderIcon})` }}></div>;
     } else if (folderName.includes('finance') || folderPath.includes('finance')) {
-      return <div className="folder-icon" style={{ backgroundImage: `url('/public/assets/asset-folder-finance.svg')` }}></div>;
+      return <div className="folder-icon" style={{ backgroundImage: `url(${financeFolderIcon})` }}></div>;
     } else if (folderName.includes('graphic') || folderPath.includes('graphic') || 
               folderName.includes('design') || folderPath.includes('design')) {
-      return <div className="folder-icon" style={{ backgroundImage: `url('/public/assets/asset-folder-graphicdesign.svg')` }}></div>;
+      return <div className="folder-icon" style={{ backgroundImage: `url(${graphicdesignFolderIcon})` }}></div>;
     } else if (folderName.includes('job') || folderPath.includes('job') || 
               folderName.includes('search') || folderPath.includes('search')) {
-      return <div className="folder-icon" style={{ backgroundImage: `url('/public/assets/asset-folder-jobsearch.svg')` }}></div>;
+      return <div className="folder-icon" style={{ backgroundImage: `url(${jobsearchFolderIcon})` }}></div>;
     } else if (folderName.includes('marketing') || folderPath.includes('marketing')) {
-      return <div className="folder-icon" style={{ backgroundImage: `url('/public/assets/asset-folder-marketing.svg')` }}></div>;
+      return <div className="folder-icon" style={{ backgroundImage: `url(${marketingFolderIcon})` }}></div>;
     } else if (folderName.includes('portfolio') || folderPath.includes('portfolio')) {
-      return <div className="folder-icon" style={{ backgroundImage: `url('/public/assets/asset-folder-portfolio.svg')` }}></div>;
+      return <div className="folder-icon" style={{ backgroundImage: `url(${portfolioFolderIcon})` }}></div>;
     } else if (folderName.includes('school') || folderPath.includes('school') || 
               folderName.includes('education') || folderPath.includes('education')) {
-      return <div className="folder-icon" style={{ backgroundImage: `url('/public/assets/asset-folder-school.svg')` }}></div>;
+      return <div className="folder-icon" style={{ backgroundImage: `url(${schoolFolderIcon})` }}></div>;
     } else if (folderName.includes('ui') || folderPath.includes('ui') || 
               folderName.includes('ux') || folderPath.includes('ux')) {
-      return <div className="folder-icon" style={{ backgroundImage: `url('/public/assets/asset-folder-uiux.svg')` }}></div>;
+      return <div className="folder-icon" style={{ backgroundImage: `url(${uiuxFolderIcon})` }}></div>;
     } else if (folderName.includes('resource') || folderPath.includes('resource')) {
-      return <div className="folder-icon" style={{ backgroundImage: `url('/public/assets/assets-folder-resources.svg')` }}></div>;
+      return <div className="folder-icon" style={{ backgroundImage: `url(${resourcesFolderIcon})` }}></div>;
     } else {
       // Default folder icon for other categories
-      return <div className="folder-icon" style={{ backgroundImage: `url('/public/assets/asset-folder.svg')` }}></div>;
+      return <div className="folder-icon" style={{ backgroundImage: `url(${baseFolderIcon})` }}></div>;
     }
   }
   
@@ -880,10 +917,15 @@ const getFileIcon = (type, item) => {
        {/* File listing */}
 <div className="file-container">
   {filteredItems.length === 0 ? (
-    <div className="empty-folder">
-      <div className="folder-icon" style={{width: '48px', height: '48px', marginBottom: '0.5rem'}}></div>
-      <p>{searchTerm ? 'No items match your search' : 'This folder is empty'}</p>
-    </div>
+     <div className="empty-folder">
+    <div className="folder-icon" style={{
+      width: '48px', 
+      height: '48px', 
+      marginBottom: '0.5rem',
+      backgroundImage: `url(${baseFolderIcon})`
+    }}></div>
+    <p>{searchTerm ? 'No items match your search' : 'This folder is empty'}</p>
+  </div>
   ) : viewMode === 'list' ? (
     <div className="file-list">
       <div className="file-list-header">
@@ -926,6 +968,7 @@ const getFileIcon = (type, item) => {
             return [
               {
                 name: 'Business',
+                color: 'business', // green theme
                 matcher: (item) => {
                   const path = item.path?.toLowerCase() || "";
                   const category = item.content?.category?.toLowerCase() || "";
@@ -941,6 +984,7 @@ const getFileIcon = (type, item) => {
               },
               {
                 name: 'Career Preparation',
+                color: 'career', // orange theme
                 matcher: (item) => {
                   const path = item.path?.toLowerCase() || "";
                   const category = item.content?.category?.toLowerCase() || "";
@@ -956,6 +1000,7 @@ const getFileIcon = (type, item) => {
               },
               {
                 name: 'Design',
+                color: 'design', // blue theme
                 matcher: (item) => {
                   const path = item.path?.toLowerCase() || "";
                   const category = item.content?.category?.toLowerCase() || "";
@@ -977,33 +1022,51 @@ const getFileIcon = (type, item) => {
           const pathSegments = currentPath.split('/').filter(segment => segment);
           
           // If we're in a specific category or subcategory
-          if (pathSegments.length > 0) {
-            return [
-              {
-                name: pathSegments[pathSegments.length - 1],
-                matcher: (item) => {
-                  const path = item.path?.toLowerCase() || "";
-                  const category = item.content?.category?.toLowerCase() || "";
-                  const searchTerm = pathSegments[pathSegments.length - 1].toLowerCase();
-                  
-                  return (
-                    path.includes(searchTerm) || 
-                    category.includes(searchTerm)
-                  );
-                }
-              }
-            ];
-          }
-          
-          // Fallback: if no specific categorization is found
-          return [
-            {
-              name: 'All Items',
-              matcher: () => true
-            }
-          ];
-        };
+  // If in a specific category/subcategory, determine color
 
+// If we're in a specific category or subcategory
+if (pathSegments.length > 0) {
+  // Always use the first segment (parent category) to determine color theme
+  const parentCategory = pathSegments[0].toLowerCase();
+  let color = 'default';
+  
+  // Determine color based on parent category (not subcategory)
+  if (['corporate', 'finance', 'marketing'].includes(parentCategory)) {
+    color = 'business';
+  } else if (['job search', 'navigating school', 'portfolio'].includes(parentCategory)) {
+    color = 'career';
+  } else if (['graphic design', 'uiux', 'resources'].includes(parentCategory)) {
+    color = 'design';
+  }
+  
+  // Create the appropriate section
+  return [
+    {
+      name: pathSegments[pathSegments.length - 1],
+      color: color,
+      matcher: (item) => {
+        const path = item.path?.toLowerCase() || "";
+        const category = item.content?.category?.toLowerCase() || "";
+        const searchTerm = pathSegments[pathSegments.length - 1].toLowerCase();
+        
+        return (
+          path.includes(searchTerm) || 
+          category.includes(searchTerm)
+        );
+      }
+    }
+  ];
+}
+  
+  // Fallback: if no specific categorization is found
+  return [
+    {
+      name: 'All Items',
+      color: 'default',
+      matcher: () => true
+    }
+  ];
+};
         // Get grid sections based on current context
         const gridSections = getGridSections();
 
@@ -1016,24 +1079,36 @@ const getFileIcon = (type, item) => {
           if (sectionItems.length === 0) return null;
 
           return (
-            <div key={section.name} className="category-section">
+            <div 
+              key={section.name} 
+              className="category-section" 
+              data-category={section.name}
+              data-parent-category={getParentCategory(currentPath)}
+            >
               <h2 className="category-heading">{section.name}</h2>
               <div className="file-grid">
-                {sectionItems.map((item) => (
-                  <div 
-                    key={item.path}
-                    className={`grid-item ${selectedItems.includes(item.path) ? 'selected' : ''}`}
-                    onClick={() => toggleSelectItem(item)}
-                    onDoubleClick={() => handleItemDoubleClick(item)}
-                  >
-                    <div className="grid-item-icon">
-                      {getFileIcon(item.type, item)}
+                {sectionItems.map((item) => {
+                  // Determine parent category for this item
+                  const parentCategory = getParentCategory(item.path || currentPath);
+                  
+                  return (
+                    <div 
+                      key={item.path}
+                      className={`grid-item ${selectedItems.includes(item.path) ? 'selected' : ''}`}
+                      onClick={() => toggleSelectItem(item)}
+                      onDoubleClick={() => handleItemDoubleClick(item)}
+                      data-item-category={parentCategory}
+                      data-item-type={item.type}
+                    >
+                      <div className="grid-item-icon">
+                        {getFileIcon(item.type, item)}
+                      </div>
+                      <div className="grid-item-name">
+                        {item.name}
+                      </div>
                     </div>
-                    <div className="grid-item-name">
-                      {item.name}
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           );

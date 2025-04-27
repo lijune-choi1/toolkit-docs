@@ -1,40 +1,40 @@
 <svg width="510" height="451" viewBox="0 0 510 451" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M1 20C1 8.95431 9.9543 0 21 0H154C165.046 0 174 8.9543 174 20V48H1V20Z" fill="#D5ECFE"/>
-<path d="M510 68C510 56.9543 501.046 48 490 48L3.05176e-05 47.9999L4.7773e-06 431C4.03495e-06 442.046 8.95432 451 20 451L490 451C501.046 451 510 442.046 510 431L510 68Z" fill="url(#paint0_linear_199_14809)"/>
-<g filter="url(#filter0_i_199_14809)">
-<path d="M209 148H186V171H209V148Z" fill="#3580BA"/>
-<path d="M185.875 170.875H163V193.75H185.875V170.875Z" fill="#3580BA"/>
-<path d="M231.875 148H209V170.875H231.875V148Z" fill="#3580BA"/>
-<path d="M163.875 194H141V216.875H163.875V194Z" fill="#3580BA"/>
-<path d="M163.875 216.625H141V239.5H163.875V216.625Z" fill="#3580BA"/>
-<path d="M345.875 216.625H323V239.5H345.875V216.625Z" fill="#3580BA"/>
-<path d="M345.875 193.75H323V216.625H345.875V193.75Z" fill="#3580BA"/>
-<path d="M255 148H230V171H255V148Z" fill="#3580BA"/>
-<path d="M231.875 126H209V148.875H231.875V126Z" fill="#3580BA"/>
-<path d="M254.875 171H232V193.875H254.875V171Z" fill="#3580BA"/>
-<path d="M208.875 103H186V125.875H208.875V103Z" fill="#3580BA"/>
-<path d="M279 148H255V171H279V148Z" fill="#3580BA"/>
-<path d="M300.875 148H278V170.875H300.875V148Z" fill="#3580BA"/>
-<path d="M322.875 171H300V193.875H322.875V171Z" fill="#3580BA"/>
-<path d="M163.875 239.5H141V262.375H163.875V239.5Z" fill="#3580BA"/>
-<path d="M163.875 262.375H141V285.25H163.875V262.375Z" fill="#3580BA"/>
-<path d="M345.875 262.375H323V285.25H345.875V262.375Z" fill="#3580BA"/>
-<path d="M345.875 286H323V308.875H345.875V286Z" fill="#3580BA"/>
-<path d="M346 239H323V263H346V239Z" fill="#3580BA"/>
-<path d="M185.875 308.25H163V331.125H185.875V308.25Z" fill="#3580BA"/>
-<path d="M163.875 285H141V307.875H163.875V285Z" fill="#3580BA"/>
-<path d="M231.875 194H209V216.875H231.875V194Z" fill="#3580BA"/>
-<path d="M277.875 194H255V216.875H277.875V194Z" fill="#3580BA"/>
-<path d="M254.875 217H232V239.875H254.875V217Z" fill="#3580BA"/>
-<path d="M322.875 308.25H300V331.125H322.875V308.25Z" fill="#3580BA"/>
-<path d="M231.625 331.125H208.75V354H231.625V331.125Z" fill="#3580BA"/>
-<path d="M208.75 331.125H185.875V354H208.75V331.125Z" fill="#3580BA"/>
-<path d="M254.5 331.125H231.625V354H254.5V331.125Z" fill="#3580BA"/>
-<path d="M277.375 331.125H254.5V354H277.375V331.125Z" fill="#3580BA"/>
-<path d="M299.875 331.125H277V354H299.875V331.125Z" fill="#3580BA"/>
+<path d="M1 20C1 8.95431 9.9543 0 21 0H154C165.046 0 174 8.9543 174 20V48H1V20Z" fill="#FFE3BF"/>
+<path d="M510 68C510 56.9543 501.046 48 490 48L3.05176e-05 47.9999L4.7773e-06 431C4.03495e-06 442.046 8.95431 451 20 451L490 451C501.046 451 510 442.046 510 431L510 68Z" fill="url(#paint0_linear_201_258)"/>
+<g filter="url(#filter0_i_201_258)">
+<path d="M209 148H186V171H209V148Z" fill="#BF7923"/>
+<path d="M185.875 170.875H163V193.75H185.875V170.875Z" fill="#BF7923"/>
+<path d="M231.875 148H209V170.875H231.875V148Z" fill="#BF7923"/>
+<path d="M163.875 194H141V216.875H163.875V194Z" fill="#BF7923"/>
+<path d="M163.875 216.625H141V239.5H163.875V216.625Z" fill="#BF7923"/>
+<path d="M345.875 216.625H323V239.5H345.875V216.625Z" fill="#BF7923"/>
+<path d="M345.875 193.75H323V216.625H345.875V193.75Z" fill="#BF7923"/>
+<path d="M255 148H230V171H255V148Z" fill="#BF7923"/>
+<path d="M231.875 126H209V148.875H231.875V126Z" fill="#BF7923"/>
+<path d="M254.875 171H232V193.875H254.875V171Z" fill="#BF7923"/>
+<path d="M208.875 103H186V125.875H208.875V103Z" fill="#BF7923"/>
+<path d="M279 148H255V171H279V148Z" fill="#BF7923"/>
+<path d="M300.875 148H278V170.875H300.875V148Z" fill="#BF7923"/>
+<path d="M322.875 171H300V193.875H322.875V171Z" fill="#BF7923"/>
+<path d="M163.875 239.5H141V262.375H163.875V239.5Z" fill="#BF7923"/>
+<path d="M163.875 262.375H141V285.25H163.875V262.375Z" fill="#BF7923"/>
+<path d="M345.875 262.375H323V285.25H345.875V262.375Z" fill="#BF7923"/>
+<path d="M345.875 286H323V308.875H345.875V286Z" fill="#BF7923"/>
+<path d="M346 239H323V263H346V239Z" fill="#BF7923"/>
+<path d="M185.875 308.25H163V331.125H185.875V308.25Z" fill="#BF7923"/>
+<path d="M163.875 285H141V307.875H163.875V285Z" fill="#BF7923"/>
+<path d="M231.875 194H209V216.875H231.875V194Z" fill="#BF7923"/>
+<path d="M277.875 194H255V216.875H277.875V194Z" fill="#BF7923"/>
+<path d="M254.875 217H232V239.875H254.875V217Z" fill="#BF7923"/>
+<path d="M322.875 308.25H300V331.125H322.875V308.25Z" fill="#BF7923"/>
+<path d="M231.625 331.125H208.75V354H231.625V331.125Z" fill="#BF7923"/>
+<path d="M208.75 331.125H185.875V354H208.75V331.125Z" fill="#BF7923"/>
+<path d="M254.5 331.125H231.625V354H254.5V331.125Z" fill="#BF7923"/>
+<path d="M277.375 331.125H254.5V354H277.375V331.125Z" fill="#BF7923"/>
+<path d="M299.875 331.125H277V354H299.875V331.125Z" fill="#BF7923"/>
 </g>
 <defs>
-<filter id="filter0_i_199_14809" x="141" y="103" width="205" height="255" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter0_i_201_258" x="141" y="103" width="205" height="255" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
@@ -42,11 +42,11 @@
 <feGaussianBlur stdDeviation="2"/>
 <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
 <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-<feBlend mode="normal" in2="shape" result="effect1_innerShadow_199_14809"/>
+<feBlend mode="normal" in2="shape" result="effect1_innerShadow_201_258"/>
 </filter>
-<linearGradient id="paint0_linear_199_14809" x1="255" y1="48" x2="255" y2="451" gradientUnits="userSpaceOnUse">
-<stop stop-color="#E0F1FE"/>
-<stop offset="1" stop-color="#0091FF"/>
+<linearGradient id="paint0_linear_201_258" x1="255" y1="48" x2="255" y2="451" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FFEED5"/>
+<stop offset="0.730769" stop-color="#FF8C00"/>
 </linearGradient>
 </defs>
 </svg>

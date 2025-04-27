@@ -322,7 +322,6 @@
   padding: 1.5rem;
   border-radius: 1rem;
   border: none;
-  background-color: #e7f3ff;
   cursor: pointer;
   aspect-ratio: 16/9;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -385,6 +384,198 @@
   box-shadow: 0 0 0 3px #2563eb;
 }
 
+/* Business subcategory items */
+.category-section[data-parent-category="Business"] .grid-item {
+  background: linear-gradient(135deg, rgb(187, 255, 208) 20%, #c6ff80 100%);
+}
+
+/* Career Preparation subcategory items */
+.category-section[data-parent-category="Career Preparation"] .grid-item {
+  background: linear-gradient(135deg, rgb(255, 191, 122) 20%, #feffe0 100%);
+}
+
+/* Design subcategory items */
+.category-section[data-parent-category="Design"] .grid-item {
+  background: linear-gradient(135deg, rgb(134, 178, 255) 20%, #e3f2fd 100%);
+}
+/* Business category and its subcategories */
+.category-section[data-category^="Corporate"] .grid-item,
+.category-section[data-category^="Finance"] .grid-item,
+.category-section[data-category^="Marketing"] .grid-item,
+.category-section[data-category^="R&D"] .grid-item,
+.category-section[data-category="Business"] .grid-item {
+  background: linear-gradient(135deg, rgb(187, 255, 208) 20%, #c6ff80 100%);
+}
+
+/* Career Preparation category and its subcategories */
+.category-section[data-category^="Job Search"] .grid-item,
+.category-section[data-category^="Navigating School"] .grid-item,
+.category-section[data-category^="Portfolio"] .grid-item,
+.category-section[data-category="Career Preparation"] .grid-item {
+  background: linear-gradient(135deg, rgb(255, 191, 122) 20%, #feffe0 100%);
+}
+
+/* Design category and its subcategories */
+.category-section[data-category^="Graphic Design"] .grid-item,
+.category-section[data-category^="UIUX"] .grid-item,
+.category-section[data-category^="Resources"] .grid-item,
+.category-section[data-category="Design"] .grid-item {
+  background: linear-gradient(135deg, rgb(134, 178, 255) 20%, #e3f2fd 100%);
+}
+
+/* Business category link icons */
+.category-section[data-category^="Corporate"] .grid-item[data-type="link"] .file-icon,
+.category-section[data-category^="Finance"] .grid-item[data-type="link"] .file-icon,
+.category-section[data-category^="Marketing"] .grid-item[data-type="link"] .file-icon,
+.category-section[data-category^="R&D"] .grid-item[data-type="link"] .file-icon,
+.category-section[data-category="Business"] .grid-item[data-type="link"] .file-icon {
+  color: #4caf50 !important; /* Green */
+}
+
+/* Career Preparation link icons */
+.category-section[data-category^="Job Search"] .grid-item[data-type="link"] .file-icon,
+.category-section[data-category^="Navigating School"] .grid-item[data-type="link"] .file-icon,
+.category-section[data-category^="Portfolio"] .grid-item[data-type="link"] .file-icon,
+.category-section[data-category="Career Preparation"] .grid-item[data-type="link"] .file-icon {
+  color: #ff9800 !important; /* Orange */
+}
+
+/* Design link icons */
+.category-section[data-category^="Graphic Design"] .grid-item[data-type="link"] .file-icon,
+.category-section[data-category^="UIUX"] .grid-item[data-type="link"] .file-icon,
+.category-section[data-category^="Resources"] .grid-item[data-type="link"] .file-icon,
+.category-section[data-category="Design"] .grid-item[data-type="link"] .file-icon {
+  color: #2196f3 !important; /* Blue */
+}
+
+/* Business PDF icons */
+.category-section[data-category^="Corporate"] .grid-item[data-type="pdf"] .file-icon,
+.category-section[data-category^="Finance"] .grid-item[data-type="pdf"] .file-icon,
+.category-section[data-category^="Marketing"] .grid-item[data-type="pdf"] .file-icon,
+.category-section[data-category^="R&D"] .grid-item[data-type="pdf"] .file-icon,
+.category-section[data-category="Business"] .grid-item[data-type="pdf"] .file-icon {
+  color: #4caf50 !important; /* Green */
+}
+
+/* Career Preparation PDF icons */
+.category-section[data-category^="Job Search"] .grid-item[data-type="pdf"] .file-icon,
+.category-section[data-category^="Navigating School"] .grid-item[data-type="pdf"] .file-icon,
+.category-section[data-category^="Portfolio"] .grid-item[data-type="pdf"] .file-icon,
+.category-section[data-category="Career Preparation"] .grid-item[data-type="pdf"] .file-icon {
+  color: #ff9800 !important; /* Orange */
+}
+
+/* Design PDF icons */
+.category-section[data-category^="Graphic Design"] .grid-item[data-type="pdf"] .file-icon,
+.category-section[data-category^="UIUX"] .grid-item[data-type="pdf"] .file-icon,
+.category-section[data-category^="Resources"] .grid-item[data-type="pdf"] .file-icon,
+.category-section[data-category="Design"] .grid-item[data-type="pdf"] .file-icon {
+  color: #2196f3 !important; /* Blue */
+}
+
+/* Business blog icons */
+.category-section[data-category^="Corporate"] .grid-item[data-type="blog"] .docs-icon,
+.category-section[data-category^="Finance"] .grid-item[data-type="blog"] .docs-icon,
+.category-section[data-category^="Marketing"] .grid-item[data-type="blog"] .docs-icon,
+.category-section[data-category^="R&D"] .grid-item[data-type="blog"] .docs-icon,
+.category-section[data-category="Business"] .grid-item[data-type="blog"] .docs-icon {
+  border-left: 2px solid #4caf50; /* Green */
+}
+
+/* Career Preparation blog icons */
+.category-section[data-category^="Job Search"] .grid-item[data-type="blog"] .docs-icon,
+.category-section[data-category^="Navigating School"] .grid-item[data-type="blog"] .docs-icon,
+.category-section[data-category^="Portfolio"] .grid-item[data-type="blog"] .docs-icon,
+.category-section[data-category="Career Preparation"] .grid-item[data-type="blog"] .docs-icon {
+  border-left: 2px solid #ff9800; /* Orange */
+}
+
+/* Design blog icons */
+.category-section[data-category^="Graphic Design"] .grid-item[data-type="blog"] .docs-icon,
+.category-section[data-category^="UIUX"] .grid-item[data-type="blog"] .docs-icon,
+.category-section[data-category^="Resources"] .grid-item[data-type="blog"] .docs-icon,
+.category-section[data-category="Design"] .grid-item[data-type="blog"] .docs-icon {
+  border-left: 2px solid #2196f3; /* Blue */
+}
+/* Business category items including links */
+.category-section[data-category="Business"] .grid-item,
+.category-section[data-category="Corporate"] .grid-item,
+.category-section[data-category="Finance"] .grid-item,
+.category-section[data-category="Marketing"] .grid-item,
+.category-section[data-category="R&D"] .grid-item,
+.category-section[data-category="Business"] .grid-item[data-type="link"],
+.category-section[data-category="Corporate"] .grid-item[data-type="link"],
+.category-section[data-category="Finance"] .grid-item[data-type="link"],
+.category-section[data-category="Marketing"] .grid-item[data-type="link"],
+.category-section[data-category="R&D"] .grid-item[data-type="link"] {
+  background: linear-gradient(135deg, rgb(187, 255, 208) 20%, #c6ff80 100%);
+}
+
+/* Career Preparation items including links */
+.category-section[data-category="Career Preparation"] .grid-item,
+.category-section[data-category="Job Search"] .grid-item,
+.category-section[data-category="Navigating School"] .grid-item,
+.category-section[data-category="Portfolio"] .grid-item,
+.category-section[data-category="Career Preparation"] .grid-item[data-type="link"],
+.category-section[data-category="Job Search"] .grid-item[data-type="link"],
+.category-section[data-category="Navigating School"] .grid-item[data-type="link"],
+.category-section[data-category="Portfolio"] .grid-item[data-type="link"] {
+  background: linear-gradient(135deg, rgb(255, 191, 122) 20%, #feffe0 100%);
+}
+
+/* Design items including links */
+.category-section[data-category="Design"] .grid-item,
+.category-section[data-category="Graphic Design"] .grid-item,
+.category-section[data-category="UIUX"] .grid-item,
+.category-section[data-category="Resources"] .grid-item,
+.category-section[data-category="Design"] .grid-item[data-type="link"],
+.category-section[data-category="Graphic Design"] .grid-item[data-type="link"],
+.category-section[data-category="UIUX"] .grid-item[data-type="link"],
+.category-section[data-category="Resources"] .grid-item[data-type="link"] {
+  background: linear-gradient(135deg, rgb(134, 178, 255) 20%, #e3f2fd 100%);
+}
+
+/* Make sure link icons match their category */
+.category-section[data-category="Business"] .grid-item[data-type="link"] .file-icon,
+.category-section[data-category="Corporate"] .grid-item[data-type="link"] .file-icon,
+.category-section[data-category="Finance"] .grid-item[data-type="link"] .file-icon,
+.category-section[data-category="Marketing"] .grid-item[data-type="link"] .file-icon,
+.category-section[data-category="R&D"] .grid-item[data-type="link"] .file-icon {
+  color: #4caf50 !important; /* Green */
+}
+
+.category-section[data-category="Career Preparation"] .grid-item[data-type="link"] .file-icon,
+.category-section[data-category="Job Search"] .grid-item[data-type="link"] .file-icon,
+.category-section[data-category="Navigating School"] .grid-item[data-type="link"] .file-icon,
+.category-section[data-category="Portfolio"] .grid-item[data-type="link"] .file-icon {
+  color: #ff9800 !important; /* Orange */
+}
+
+.category-section[data-category="Design"] .grid-item[data-type="link"] .file-icon,
+.category-section[data-category="Graphic Design"] .grid-item[data-type="link"] .file-icon,
+.category-section[data-category="UIUX"] .grid-item[data-type="link"] .file-icon,
+.category-section[data-category="Resources"] .grid-item[data-type="link"] .file-icon {
+  color: #2196f3 !important; /* Blue */
+}
+
+/* Similarly for blog/pdf types */
+.category-section[data-category="Business"] .grid-item[data-type="blog"] .docs-icon,
+.category-section[data-category="Corporate"] .grid-item[data-type="blog"] .docs-icon,
+.category-section[data-category="Finance"] .grid-item[data-type="blog"] .docs-icon,
+.category-section[data-category="Marketing"] .grid-item[data-type="blog"] .docs-icon,
+.category-section[data-category="R&D"] .grid-item[data-type="blog"] .docs-icon {
+  border-left: 2px solid #4caf50; /* Green */
+}
+
+.category-section[data-category="Business"] .grid-item[data-type="pdf"] .file-icon,
+.category-section[data-category="Corporate"] .grid-item[data-type="pdf"] .file-icon,
+.category-section[data-category="Finance"] .grid-item[data-type="pdf"] .file-icon,
+.category-section[data-category="Marketing"] .grid-item[data-type="pdf"] .file-icon,
+.category-section[data-category="R&D"] .grid-item[data-type="pdf"] .file-icon {
+  color: #4caf50 !important; /* Green */
+}
+
+
 /* Category section styling */
 .category-sections {
   display: flex;
@@ -405,6 +596,9 @@
   color: #1f2937;
   padding-left: 0.5rem;
 }
+
+
+/* Optional: you can add hover effects for the folder icons */
 
 
 /* ========== MODALS ========== */
