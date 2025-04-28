@@ -47,7 +47,7 @@
 
 .search-bar {
   border: 1px solid #d1d5db;
-  border-radius: 0.375rem;
+  border-radius: 100px;
   padding: 0.25rem 0.75rem;
   font-size: 0.875rem;
 }
@@ -57,71 +57,411 @@
   border-color: #2563eb;
   box-shadow: 0 0 0 1px #000000;
 }
-
-/* ========== SIDEBAR ========== */
-.sidebar {
-  width: 12rem;
-  background-color: white;
-  border-right: 1px solid #e5e7eb;
-  display: flex;
-  flex-direction: column;
+.inline-breadcrumb {
+  display:flex;
 }
 
-.sidebar-nav {
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+/* Add to your DropboxStyles.css file */
+
+/* Integrated header for content view */
+.integrated-header {
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #e5e7eb;
+  background-color: #f9fafb;
 }
 
-.nav-button {
+.breadcrumb-navigation {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f3f4f6;
+  border: 1px solid #e5e7eb;
   border-radius: 0.375rem;
-  text-align: left;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  margin-right: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.back-button:hover {
+  background-color: #e5e7eb;
+}
+
+.breadcrumb-path {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
   font-size: 0.875rem;
+  color: #6b7280;
 }
 
-.nav-button.active {
-  background-color: #e0e7ff;
-  color: #2563eb;
+.breadcrumb-item {
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.breadcrumb-item:hover {
+  color: #4b5563;
+  text-decoration: underline;
+}
+
+.breadcrumb-separator {
+  margin: 0 0.5rem;
+  color: #9ca3af;
+}
+
+.content-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0.5rem 0 0 0;
+}
+
+/* Content container adjustments */
+.content-container {
+  padding: 1rem 2rem;
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Blog view content adjustments for integrated header */
+.blog-view-content,
+.link-view-content,
+.pdf-view-content {
+  width: 100%;
+}
+
+/* Add these styles to your CSS file for the round toggle buttons */
+
+/* Toggle button container */
+.view-toggle-wrapper {
+  margin-left: 8px;
+}
+
+.view-toggle-container {
+  display: flex;
+  background-color: #f3f4f6;
+  border-radius: 9999px;
+  padding: 2px;
+  position: relative;
+  width: 88px;
+  height: 36px;
+}
+
+/* Toggle buttons */
+.view-toggle-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 9999px;
+  width: 42px;
+  height: 32px;
+  padding: 0;
+  cursor: pointer;
+  color: #6b7280;
+  transition: color 0.2s;
+  z-index: 2;
+}
+
+.view-toggle-button:hover {
+  color: #111827;
+}
+
+.view-toggle-button.active {
+  color: #111827;
+}
+
+/* Active indicator style */
+.view-toggle-container::before {
+  content: '';
+  position: absolute;
+  width: 42px;
+  height: 32px;
+  border-radius: 9999px;
+  background-color: white;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+/* Move the active indicator based on selected view */
+.view-toggle-container:has(.view-toggle-button:nth-child(2).active)::before {
+  transform: translateX(42px);
+}
+
+/* Fallback for browsers that don't support :has */
+.view-toggle-button.active ~ .view-toggle-indicator {
+  transform: translateX(42px);
+}
+
+/* Optional: Add a visible separator between buttons */
+.view-toggle-container::after {
+  content: '';
+  position: absolute;
+  height: 16px;
+  width: 1px;
+  background-color: #d1d5db;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+}
+/* ========== SIDEBAR ========== */
+/* Add these styles to your DropboxStyles.css file */
+/* Complete Sidebar CSS */
+
+/* Sidebar container */
+.sidebar {
+  width: 215px;
+  background-color: #fff;
+  border-right: 1px solid #e5e7eb;
+  height: 100%;
+  overflow-y: auto;
+  flex-shrink: 0;
+  padding: 1rem 0;
+}
+
+/* Category headers */
+.sidebar-category-header {
+  font-size: 0.875rem;
   font-weight: 500;
+  color: #6b7280;
+  padding: 0.75rem 1rem 0.25rem;
+  margin-top: 0.5rem;
+  margin-left:1rem;
+
 }
 
-.nav-button:hover:not(.active) {
+/* Navigation items */
+.sidebar-nav-item {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.9375rem;
+  color: #1f2937;
+  transition: background-color 0.2s;
+  border-radius: 0;
+  margin-left:1rem;
+  width:85%;
+
+  
+}
+
+.sidebar-nav-item:hover {
+  background-color: #f3f4f6;
+  width:85%;
+  border-radius:8px;
+
+
+}
+
+.sidebar-nav-item.active {
+  background-color: #f3f4f6;
+  font-weight: 500;
+  width:85%;
+  border-radius:8px;
+}
+
+/* Icon styles */
+.sidebar-icon {
+  width: 28px;
+  height: 28px;
+  margin-right: 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Icon backgrounds */
+.all-icon {
   background-color: #f3f4f6;
 }
 
-.storage-info {
-  margin-top: auto;
-  padding: 1rem;
-  border-top: 1px solid #e5e7eb;
+
+
+/* Business category icons */
+.corporate-icon {
+  background-color: #dcfce7;
 }
 
-.storage-text {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.875rem;
-  margin-bottom: 0.25rem;
+.finance-icon {
+  background-color: #d1fae5;
 }
 
-.storage-bar {
-  height: 0.5rem;
-  width: 100%;
-  background-color: #e5e7eb;
-  border-radius: 9999px;
-  overflow: hidden;
+.marketing-icon {
+  background-color: #e0f2fe;
 }
 
-.storage-fill {
-  height: 100%;
-  width: 50%;
-  background-color: #000000;
-  border-radius: 9999px;
+/* Career Preparation category icons */
+.jobsearch-icon {
+  background-color: #fff7ed;
 }
 
+.school-icon {
+  background-color: #ffedd5;
+}
+
+.portfolio-icon {
+  background-color: #fef3c7;
+}
+
+/* Design category icons */
+.design-icon {
+  background-color: #f5d0fe;
+}
+
+.uiux-icon {
+  background-color: #e0e7ff;
+}
+
+.resources-icon {
+  background-color: #fee2e2;
+}
+
+.templates-icon {
+  background-color: #dbeafe;
+}
+
+/* Icon content (using SVG masks) */
+.all-icon::before {
+  content: '';
+  display: block;
+  width: 14px;
+  height: 14px;
+  background-color: #333;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'%3E%3C/path%3E%3Cpolyline points='9 22 9 12 15 12 15 22'%3E%3C/polyline%3E%3C/svg%3E");
+  mask-size: cover;
+  mask-repeat: no-repeat;
+}
+
+
+.corporate-icon::before {
+  content: '';
+  display: block;
+  width: 14px;
+  height: 14px;
+  background-color: #16a34a;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='2' width='16' height='20' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='12' y1='18' x2='12.01' y2='18'%3E%3C/line%3E%3C/svg%3E");
+  mask-size: cover;
+  mask-repeat: no-repeat;
+}
+
+.finance-icon::before {
+  content: '';
+  display: block;
+  width: 14px;
+  height: 14px;
+  background-color: #10b981;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6'%3E%3C/path%3E%3C/svg%3E");
+  mask-size: cover;
+  mask-repeat: no-repeat;
+}
+
+.marketing-icon::before {
+  content: '';
+  display: block;
+  width: 14px;
+  height: 14px;
+  background-color: #0ea5e9;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m18 8 4 4-4 4'/><path d='m2 12 16 0'/><path d='m2 17 12 0'/><path d='m2 7 9 0'/%3E%3C/svg%3E");
+  mask-size: cover;
+  mask-repeat: no-repeat;
+}
+
+.jobsearch-icon::before {
+  content: '';
+  display: block;
+  width: 14px;
+  height: 14px;
+  background-color: #f97316;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='7' width='20' height='14' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16'%3E%3C/path%3E%3C/svg%3E");
+  mask-size: cover;
+  mask-repeat: no-repeat;
+}
+
+.school-icon::before {
+  content: '';
+  display: block;
+  width: 14px;
+  height: 14px;
+  background-color: #ea580c;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m20 6-8.5 8.5-6-6L2 12l8.5 8.5L22 10l-2-4ZM20 6l2 4'/><path d='M13.5 3.5 17 7'/><path d='M19.5 13.5 22 16'/><path d='M10 5 8 3'/><path d='M5 10 3 8'/><path d='m14 21-4-4'/><path d='m3 22 3-3'/%3E%3C/svg%3E");
+  mask-size: cover;
+  mask-repeat: no-repeat;
+}
+
+.portfolio-icon::before {
+  content: '';
+  display: block;
+  width: 14px;
+  height: 14px;
+  background-color: #d97706;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'%3E%3C/path%3E%3Ccircle cx='12' cy='7' r='4'%3E%3C/circle%3E%3C/svg%3E");
+  mask-size: cover;
+  mask-repeat: no-repeat;
+}
+
+.design-icon::before {
+  content: '';
+  display: block;
+  width: 14px;
+  height: 14px;
+  background-color: #d946ef;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cpath d='M8 14s1.5 2 4 2 4-2 4-2'%3E%3C/path%3E%3Cline x1='9' y1='9' x2='9.01' y2='9'%3E%3C/line%3E%3Cline x1='15' y1='9' x2='15.01' y2='9'%3E%3C/line%3E%3C/svg%3E");
+  mask-size: cover;
+  mask-repeat: no-repeat;
+}
+
+.uiux-icon::before {
+  content: '';
+  display: block;
+  width: 14px;
+  height: 14px;
+  background-color: #6366f1;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cpath d='M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14'%3E%3C/path%3E%3C/svg%3E");
+  mask-size: cover;
+  mask-repeat: no-repeat;
+}
+
+.resources-icon::before {
+  content: '';
+  display: block;
+  width: 14px;
+  height: 14px;
+  background-color: #ef4444;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48'%3E%3C/path%3E%3C/svg%3E");
+  mask-size: cover;
+  mask-repeat: no-repeat;
+}
+
+.templates-icon::before {
+  content: '';
+  display: block;
+  width: 14px;
+  height: 14px;
+  background-color: #3b82f6;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z'%3E%3C/path%3E%3Cpolyline points='14 2 14 8 20 8'%3E%3C/polyline%3E%3Cpath d='M8 13h2'%3E%3C/path%3E%3Cpath d='M8 17h2'%3E%3C/path%3E%3Cpath d='M14 13h2'%3E%3C/path%3E%3Cpath d='M14 17h2'%3E%3C/path%3E%3C/svg%3E");
+  mask-size: cover;
+  mask-repeat: no-repeat;
+}
 /* ========== CONTENT AREA ========== */
 .content-area {
   flex: 1;
@@ -171,7 +511,6 @@
 
 /* ========== BUTTONS ========== */
 .btn {
-  display: flex;
   align-items: center;
   gap: 0.25rem;
   font-size: 0.875rem;
@@ -183,10 +522,29 @@
 .btn-primary {
   background-color: #000000;
   color: white;
+  font-weight:500;
+  transition:0.5s;
+
 }
+.btn-primary2 {
+  color: rgb(139, 139, 139);
+  border: 1px solid rgb(223, 223, 223);
+  font-weight:500;
+  transition:0.5s;
+  border-radius:100px;
+
+}
+
+.btn-primary2:hover {
+  background-color: #d8d8d8;
+  transition:0.5s;
+}
+
 
 .btn-primary:hover {
   background-color: #323232;
+  transition:0.5s;
+
 }
 
 .btn-secondary {
@@ -211,7 +569,6 @@
 .file-container {
   flex: 1;
   overflow-y: auto;
-  padding: 1.5rem;
 }
 
 .content-container {
@@ -229,6 +586,34 @@
   color: #6b7280;
 }
 
+.title-section {
+  padding-bottom: 8rem;
+  border-bottom: 1px solid rgb(230, 230, 230);
+  text-align: left;
+}
+
+.title-section h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  margin-top: 2rem;
+  color: #343a40;
+}
+
+.title-section p {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  color: #a5a5a5;
+  max-width: 500px;
+  font-weight:300;
+
+}
+.scrollable-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 1rem 10rem;
+  margin-left:auto;
+  margin-right:auto;
+}
 /* ========== FILE ICONS ========== */
 .folder-icon {
   width: 200px;
@@ -300,6 +685,7 @@
   font-size: 18px;
 }
 
+
 /* ========== GRID VIEW (APPLE HIG STYLE) ========== */
 /* Adjust file grid layout to account for names below */
 /* Make sure grid items are 3 per row */
@@ -308,7 +694,6 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem 2rem;
   padding: 0.5rem;
-  max-width: 1200px;
   margin: 0;
 }
 
@@ -347,9 +732,9 @@
 
 .grid-item-name {
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 500;
   text-align: left;
-  color: #1f2937;
+  color: #bcbcbc;
   position: absolute;
   left: 0;
   bottom: -2.75rem; /* Position below the card */
@@ -362,7 +747,7 @@
 
 .grid-item  {
   width: 400px;
-  height: 400px;
+  height: 250px;
   background-size: contain;
   background-position: center;
 }
@@ -595,6 +980,7 @@
   font-weight: 600;
   color: #1f2937;
   padding-left: 0.5rem;
+  margin-top:1rem;
 }
 
 

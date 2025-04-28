@@ -6,8 +6,10 @@ import BlogPost from './BlogPost';
 import LinkPost from './LinkPost';
 import PDFPost from './PDFPost';
 import Sidebar from './Sidebar';
+import Navbar from './Navbar'; // Import the Navbar component
 import './DropboxStyles.css';
 import { fetchAllContent, getCategories, clearCache, getCategoryHierarchy } from '../googleSheetService';
+
 // Add SVG imports for folder icons
 // Define paths to SVG files using PUBLIC_URL
 const baseFolderIcon = `${process.env.PUBLIC_URL}/assets/asset-folder.svg`;
@@ -407,8 +409,6 @@ const DropboxApp = () => {
     }
   };
 
-  
-
   // Handle category change in upload modal
   const handleCategoryChange = async (e) => {
     const category = e.target.value;
@@ -602,32 +602,31 @@ const DropboxApp = () => {
   };
 
   // Helper function to determine parent category for any path
-const getParentCategory = (path) => {
-  const pathSegments = path.split('/').filter(segment => segment);
-  
-  // If no segments, return default
-  if (!pathSegments.length) return 'default';
-  
-  // First segment is always the parent category
-  const parentCategoryName = pathSegments[0].toLowerCase();
-  
-  // Map to the three main categories
-  if (['corporate', 'finance', 'marketing'].includes(parentCategoryName)) {
-    return 'Business';
-  } else if (['job search', 'navigating school', 'portfolio'].includes(parentCategoryName)) {
-    return 'Career Preparation';
-  } else if (['graphic design', 'uiux', 'resources'].includes(parentCategoryName)) {
-    return 'Design';
-  }
-  
-  // Return the first segment as fallback
-  return pathSegments[0];
-};
+  const getParentCategory = (path) => {
+    const pathSegments = path.split('/').filter(segment => segment);
+    
+    // If no segments, return default
+    if (!pathSegments.length) return 'default';
+    
+    // First segment is always the parent category
+    const parentCategoryName = pathSegments[0].toLowerCase();
+    
+    // Map to the three main categories
+    if (['corporate', 'finance', 'marketing'].includes(parentCategoryName)) {
+      return 'Business';
+    } else if (['job search', 'navigating school', 'portfolio'].includes(parentCategoryName)) {
+      return 'Career Preparation';
+    } else if (['graphic design', 'uiux', 'resources'].includes(parentCategoryName)) {
+      return 'Design';
+    }
+    
+    // Return the first segment as fallback
+    return pathSegments[0];
+  };
 
+// Updated getFileIcon function for DropboxApp.jsx
+// Replace the existing getFileIcon function with this one
 
-  // Get icon for file type
- // Get icon for file type
-// Updated getFileIcon function using imported SVGs
 const getFileIcon = (type, item) => {
   // Handle folders with specific category SVGs
   if (type === 'folder') {
@@ -641,20 +640,20 @@ const getFileIcon = (type, item) => {
     } else if (folderName.includes('finance') || folderPath.includes('finance')) {
       return <div className="folder-icon" style={{ backgroundImage: `url(${financeFolderIcon})` }}></div>;
     } else if (folderName.includes('graphic') || folderPath.includes('graphic') || 
-              folderName.includes('design') || folderPath.includes('design')) {
+               folderName.includes('design') || folderPath.includes('design')) {
       return <div className="folder-icon" style={{ backgroundImage: `url(${graphicdesignFolderIcon})` }}></div>;
     } else if (folderName.includes('job') || folderPath.includes('job') || 
-              folderName.includes('search') || folderPath.includes('search')) {
+               folderName.includes('search') || folderPath.includes('search')) {
       return <div className="folder-icon" style={{ backgroundImage: `url(${jobsearchFolderIcon})` }}></div>;
     } else if (folderName.includes('marketing') || folderPath.includes('marketing')) {
       return <div className="folder-icon" style={{ backgroundImage: `url(${marketingFolderIcon})` }}></div>;
     } else if (folderName.includes('portfolio') || folderPath.includes('portfolio')) {
       return <div className="folder-icon" style={{ backgroundImage: `url(${portfolioFolderIcon})` }}></div>;
     } else if (folderName.includes('school') || folderPath.includes('school') || 
-              folderName.includes('education') || folderPath.includes('education')) {
+               folderName.includes('education') || folderPath.includes('education')) {
       return <div className="folder-icon" style={{ backgroundImage: `url(${schoolFolderIcon})` }}></div>;
     } else if (folderName.includes('ui') || folderPath.includes('ui') || 
-              folderName.includes('ux') || folderPath.includes('ux')) {
+               folderName.includes('ux') || folderPath.includes('ux')) {
       return <div className="folder-icon" style={{ backgroundImage: `url(${uiuxFolderIcon})` }}></div>;
     } else if (folderName.includes('resource') || folderPath.includes('resource')) {
       return <div className="folder-icon" style={{ backgroundImage: `url(${resourcesFolderIcon})` }}></div>;
@@ -664,13 +663,44 @@ const getFileIcon = (type, item) => {
     }
   }
   
+  // Special case for link type - show preview instead of icon
+  if (type === 'link') {
+    // Extract necessary information from item
+    const url = item.content?.url || 'https://example.com';
+    let domain = '';
+    
+    try {
+      domain = new URL(url).hostname;
+    } catch (e) {
+      domain = url;
+    }
+    
+    // Use Google's favicon service
+    const favicon = `https://www.google.com/s2/favicons?domain=${domain}&sz=32`;
+    
+    // Return link preview rather than just an icon
+    return (
+      <div className="link-preview">
+        <div className="link-preview-header">
+          <img 
+            src={favicon} 
+            alt="" 
+            className="link-preview-favicon" 
+          />
+          <span className="link-preview-domain">{domain}</span>
+        </div>
+        <div className="link-preview-title">
+          {item.name.replace('.link', '')}
+        </div>
+      </div>
+    );
+  }
+  
   // Handle other file types - these remain unchanged
   switch (type) {
     case 'blog':
     case 'post':
       return <div className="docs-icon"></div>;
-    case 'link':
-      return <Link className="file-icon" style={{color: '#0253a5'}} />;
     case 'pdf':
       return <FileDown className="file-icon" style={{color: '#dc2626'}} />;
     case 'image': 
@@ -680,478 +710,509 @@ const getFileIcon = (type, item) => {
   }
 };
 
-  // Generate breadcrumb navigation
-  const renderBreadcrumbs = () => {
-    const segments = currentPath.split('/').filter(segment => segment);
-    
-    return (
-      <div className="breadcrumb">
-        <span 
-          className="breadcrumb-item"
-          onClick={() => navigateToFolder('/')}
-        >
-          Global Toolkit
-        </span>
-        
-        {segments.map((segment, index) => {
-          const pathToSegment = '/' + segments.slice(0, index + 1).join('/');
-          return (
-            <React.Fragment key={index}>
-              <span className="breadcrumb-separator">/</span>
-              <span 
-                className="breadcrumb-item"
-                onClick={() => navigateToFolder(pathToSegment)}
-              >
-                {segment}
-              </span>
-            </React.Fragment>
-          );
-        })}
-      </div>
-    );
-  };
-
+// Generate breadcrumb navigation
+const renderBreadcrumbs = () => {
+  const segments = currentPath.split('/').filter(segment => segment);
   
+  return (
+    <div className="breadcrumb">
+      <span 
+        className="breadcrumb-item"
+        onClick={() => navigateToFolder('/')}
+      >
+        Global Toolkit
+      </span>
+      
+      {segments.map((segment, index) => {
+        const pathToSegment = '/' + segments.slice(0, index + 1).join('/');
+        return (
+          <React.Fragment key={index}>
+            <span className="breadcrumb-separator">/</span>
+            <span 
+              className="breadcrumb-item"
+              onClick={() => navigateToFolder(pathToSegment)}
+            >
+              {segment}
+            </span>
+          </React.Fragment>
+        );
+      })}
+    </div>
+  );
+};
 
-  // Render the appropriate content component based on type
-  const renderContent = () => {
-    if (!showContent) return null;
-    
-    switch (showContent.contentType) {
-      case 'blog':
-        return <BlogPost post={showContent} />;
-      case 'link':
-        return <LinkPost post={showContent} />;
-      case 'pdf':
-        return <PDFPost post={showContent} />;
-      default:
-        return <div>Unknown content type: {showContent.contentType}</div>;
-    }
-  };
-
-  // If showing content, render appropriate component
-  if (showContent) {
-    return (
-      <div className="app-container">
-        <header className="app-header">
-          <div className="header-content">
-            <div className="header-left">
-              <button 
-                className="btn btn-secondary"
-                onClick={() => setShowContent(null)}
-                style={{marginRight: '10px'}}
-              >
-                <ArrowLeft size={18} />
-              </button>
-              <h1 className="app-title">Toolkit</h1>
-            </div>
-          </div>
-        </header>
-        
-        <div className="main-content">
-          <Sidebar currentPath={currentPath} navigateToFolder={navigateToFolder} fileSystem={fileSystem} />
-          
-          <div className="content-container">
-            {renderContent()}
-          </div>
-        </div>
-      </div>
-    );
+// Render the appropriate content component based on type
+const renderContent = () => {
+  if (!showContent) return null;
+  
+  switch (showContent.contentType) {
+    case 'blog':
+      return <BlogPost post={showContent} />;
+    case 'link':
+      return <LinkPost post={showContent} />;
+    case 'pdf':
+      return <PDFPost post={showContent} />;
+    default:
+      return <div>Unknown content type: {showContent.contentType}</div>;
   }
+};
 
-  // Display loading screen
-  if (loading) {
-    return (
-      <div className="app-container">
-        <div className="loading-screen">
-          <div className="loading-circle"></div>
-          <p>Loading content...</p>
-        </div>
-      </div>
-    );
-  }
+// Replace this content view section in DropboxApp.jsx:
 
-  // Display error message
-  if (error) {
-    return (
-      <div className="app-container">
-        <div className="error-message">
-          <h3>Error</h3>
-          <p>{error}</p>
-          <button className="btn btn-primary" onClick={() => loadContent(true)}>
-            Try Again
-          </button>
-        </div>
-      </div>
-    );
-  }
+// Updated content view section in DropboxApp.jsx
 
+// If showing content, render appropriate component with integrated navigation
+if (showContent) {
   return (
     <div className="app-container">
-      {/* Header */}
-      <header className="app-header">
-        <div className="header-content">
-          <div className="header-left">
-            <h1 className="app-title">Toolkit+DesignerDocs </h1>
+      <div className="integrated-header">
+        <div className="breadcrumb-navigation">
+          <button 
+            className="back-button"
+            onClick={() => setShowContent(null)}
+          >
+            <ArrowLeft size={18} />
+          </button>
+          <div className="breadcrumb-path">
+            <span 
+              className="breadcrumb-item"
+              onClick={() => navigateToFolder('/')}
+            >
+              Global Toolkit
+            </span>
+            {showContent.category && (
+              <>
+                <span className="breadcrumb-separator">/</span>
+                <span 
+                  className="breadcrumb-item"
+                  onClick={() => navigateToFolder(`/${showContent.category}`)}
+                >
+                  {showContent.category}
+                </span>
+              </>
+            )}
+            {showContent.subcategory && (
+              <>
+                <span className="breadcrumb-separator">/</span>
+                <span 
+                  className="breadcrumb-item"
+                  onClick={() => navigateToFolder(`/${showContent.category}/${showContent.subcategory}`)}
+                >
+                  {showContent.subcategory}
+                </span>
+              </>
+            )}
           </div>
-          <div className="header-right">
-            <input
-              type="text"
-              placeholder="Search files..."
-              className="search-bar"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+        </div>
+        <h1 className="content-title">{showContent.contentType === 'blog' ? showContent.title : ''}</h1>
+      </div>
+      
+      <div className="main-content">
+        <Sidebar currentPath={currentPath} navigateToFolder={navigateToFolder} fileSystem={fileSystem} />
+        
+        <div className="content-container">
+          {renderContent()}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Display loading screen
+if (loading) {
+  return (
+    <div className="app-container">
+      <div className="loading-screen">
+        <div className="loading-circle"></div>
+        <p>Loading content...</p>
+      </div>
+    </div>
+  );
+}
+
+// Display error message
+if (error) {
+  return (
+    <div className="app-container">
+      <div className="error-message">
+        <h3>Error</h3>
+        <p>{error}</p>
+        <button className="btn btn-primary" onClick={() => loadContent(true)}>
+          Try Again
+        </button>
+      </div>
+    </div>
+  );
+}
+
+return (
+  <div className="app-container">
+    {/* Use the Navbar component instead of inline header */}
+    <Navbar 
+      currentPath={currentPath}
+      navigateUp={navigateUp}
+      navigateToFolder={navigateToFolder}
+      searchTerm={searchTerm}
+      setSearchTerm={setSearchTerm}
+      setShowUploadModal={setShowUploadModal}
+      viewMode={viewMode}
+      setViewMode={setViewMode}
+      refreshContent={refreshContent}
+      forceCompleteRefresh={forceCompleteRefresh}
+      refreshing={refreshing}
+      renderBreadcrumbs={renderBreadcrumbs}
+    />
+
+    {/* Main content */}
+    <div className="main-content">
+      {/* Sidebar */}
+      <Sidebar currentPath={currentPath} navigateToFolder={navigateToFolder} fileSystem={fileSystem} />
+
+      {/* Content area */}
+      <div className="content-area">
+        {/* Toolbar - Removed as it's now in the Navbar */}
+        
+        <div className="scrollable-content">
+          {/* Title section - only show on main page (currentPath === '/') */}
+          {currentPath === '/' && (
+            <div className="title-section">
+              <h1>A Design Document Library</h1>
+              <p>Designer Docs contains guidance and best practices collected by Rhode Island School of Design students and professors, which can help you design your own design career practices.</p>
+              <button className="btn btn-primary2">
+                Subscribe Biweekly
+              </button>
+            </div>
+          )}
+
+          {/* File listing */}
+          <div className="file-container">
+            {filteredItems.length === 0 ? (
+              <div className="empty-folder">
+                <div className="folder-icon" style={{
+                  width: '48px', 
+                  height: '48px', 
+                  marginBottom: '0.5rem',
+                  backgroundImage: `url(${baseFolderIcon})`
+                }}></div>
+                <p>{searchTerm ? 'No items match your search' : 'This folder is empty'}</p>
+              </div>
+            ) : viewMode === 'list' ? (
+              <div className="file-list">
+                <div className="file-list-header">
+                  <div>Name</div>
+                  <div>Type</div>
+                  <div>Modified</div>
+                  <div></div>
+                </div>
+                
+                {filteredItems.map((item) => (
+                  <div 
+                    key={item.path}
+                    className={`file-item ${selectedItems.includes(item.path) ? 'selected' : ''}`}
+                    onClick={() => toggleSelectItem(item)}
+                    onDoubleClick={() => handleItemDoubleClick(item)}
+                  >
+                    <div className="file-name">
+                      {getFileIcon(item.type, item)}
+                      <span>{item.name}</span>
+                    </div>
+                    <div className="file-type">{item.type}</div>
+                    <div className="file-modified">{item.lastModified || '--'}</div>
+                    <div className="file-actions">
+                      {item.type !== 'folder' && (
+                        <button className="btn btn-small">
+                          <Download size={16} />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="category-sections">
+                {(() => {
+                  // Function to determine grid category sections based on current path and content
+                  const getGridSections = () => {
+                    // Default categorization for root/global toolkit
+                    if (currentPath === '/') {
+                      return [
+                        
+                        {
+                          name: 'Design',
+                          color: 'design', // blue theme
+                          matcher: (item) => {
+                            const path = item.path?.toLowerCase() || "";
+                            const category = item.content?.category?.toLowerCase() || "";
+                            return (
+                              path.includes('graphic design') || 
+                              path.includes('uiux') || 
+                              path.includes('resources') ||
+                              category.includes('graphic') || 
+                              category.includes('design') || 
+                              category.includes('UIUX') || 
+                              category.includes('resources')
+                            );
+                          }
+                        },
+                        {
+                          name: 'Business',
+                          color: 'business', // green theme
+                          matcher: (item) => {
+                            const path = item.path?.toLowerCase() || "";
+                            const category = item.content?.category?.toLowerCase() || "";
+                            return (
+                              path.includes('corporate') || 
+                              path.includes('finance') || 
+                              path.includes('marketing') ||
+                              category.includes('corporate') || 
+                              category.includes('finance') || 
+                              category.includes('marketing')
+                            );
+                          }
+                        },
+                        {
+                          name: 'Career Preparation',
+                          color: 'career', // orange theme
+                          matcher: (item) => {
+                            const path = item.path?.toLowerCase() || "";
+                            const category = item.content?.category?.toLowerCase() || "";
+                            return (
+                              path.includes('job search') || 
+                              path.includes('navigating school') || 
+                              path.includes('portfolio') ||
+                              category.includes('job search') || 
+                              category.includes('navigating') || 
+                              category.includes('portfolio')
+                            );
+                          }
+                        }
+                      ];
+                    }
+                    
+                    // If in a specific category/subcategory, create a single section or no sections
+                    const pathSegments = currentPath.split('/').filter(segment => segment);
+                    
+                    // If we're in a specific category or subcategory
+                    if (pathSegments.length > 0) {
+                      // Always use the first segment (parent category) to determine color theme
+                      const parentCategory = pathSegments[0].toLowerCase();
+                      let color = 'default';
+                      
+                      // Determine color based on parent category (not subcategory)
+                      if (['corporate', 'finance', 'marketing'].includes(parentCategory)) {
+                        color = 'business';
+                      } else if (['job search', 'navigating school', 'portfolio'].includes(parentCategory)) {
+                        color = 'career';
+                      } else if (['graphic design', 'uiux', 'resources'].includes(parentCategory)) {
+                        color = 'design';
+                      }
+                      
+                      // Create the appropriate section
+                      return [
+                        {
+                          name: pathSegments[pathSegments.length - 1],
+                          color: color,
+                          matcher: (item) => {
+                            const path = item.path?.toLowerCase() || "";
+                            const category = item.content?.category?.toLowerCase() || "";
+                            const searchTerm = pathSegments[pathSegments.length - 1].toLowerCase();
+                            
+                            return (
+                              path.includes(searchTerm) || 
+                              category.includes(searchTerm)
+                            );
+                          }
+                        }
+                      ];
+                    }
+                    
+                    // Fallback: if no specific categorization is found
+                    return [
+                      {
+                        name: 'All Items',
+                        color: 'default',
+                        matcher: () => true
+                      }
+                    ];
+                  };
+                  
+                  // Get grid sections based on current context
+                  const gridSections = getGridSections();
+
+                  // Render sections
+                  return gridSections.map(section => {
+                    // Filter items for this section
+                    const sectionItems = filteredItems.filter(section.matcher);
+                    
+                    // Only render section if it has items
+                    if (sectionItems.length === 0) return null;
+
+                    return (
+                      <div 
+                        key={section.name} 
+                        className="category-section" 
+                        data-category={section.name}
+                        data-parent-category={getParentCategory(currentPath)}
+                      >
+                        <h2 className="category-heading">{section.name}</h2>
+                        <div className="file-grid">
+                          {sectionItems.map((item) => {
+                            // Determine parent category for this item
+                            const parentCategory = getParentCategory(item.path || currentPath);
+                            
+                            return (
+                              <div 
+                              key={item.path}
+                              className={`grid-item ${selectedItems.includes(item.path) ? 'selected' : ''}`}
+                              onClick={() => toggleSelectItem(item)}
+                              onDoubleClick={() => handleItemDoubleClick(item)}
+                              data-item-category={parentCategory}
+                              data-item-type={item.type}
+                            >
+                              {item.type === 'link' ? (
+                                // For link items, render the preview directly in the grid cell
+                                getFileIcon(item.type, item)
+                              ) : (
+                                // For non-link items, use the standard grid layout
+                                <>
+                                  <div className="grid-item-icon">
+                                    {getFileIcon(item.type, item)}
+                                  </div>
+                                  <div className="grid-item-name">
+                                    {item.name}
+                                  </div>
+                                </>
+                              )}
+                            </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    );
+                  }).filter(Boolean) // Remove null sections
+                })()}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Upload modal */}
+    {showUploadModal && (
+      <div className="modal">
+        <div className="modal-content">
+          <h3>Submit Document</h3>
+          <form onSubmit={handleFileUpload}>
+            <div className="form-group">
+              <label>File Name</label>
+              <input 
+                type="text" 
+                name="fileName" 
+                placeholder="Enter file name"
+                required
+              />
+            </div>
+            
+            <div className="form-group">
+              <label>File Type</label>
+              <select name="fileType">
+                <option value="post">Blog Post (.post)</option>
+                <option value="link">Link (.link)</option>
+                <option value="pdf">PDF Document (.pdf)</option>
+                <option value="document">Document (.doc)</option>
+              </select>
+            </div>
+            
+            <div className="form-group">
+              <label>Category</label>
+              <select 
+                name="category"
+                value={selectedCategory}
+                onChange={handleCategoryChange}
+              >
+                <option value="">Select Category</option>
+                {categories.map(category => (
+                  <option key={category} value={category}>{category}</option>
+                ))}
+              </select>
+            </div>
+            
+            {selectedCategory && subcategories.length > 0 && (
+              <div className="form-group">
+                <label>Subcategory</label>
+                <select name="subcategory">
+                  <option value="">None (add to main category)</option>
+                  {subcategories.map(subcat => (
+                    <option key={subcat} value={subcat}>{subcat}</option>
+                  ))}
+                </select>
+              </div>
+            )}
+            
+            <div className="modal-buttons">
+              <button 
+                type="button" 
+                className="btn btn-secondary"
+                onClick={() => setShowUploadModal(false)}
+              >
+                Cancel
+              </button>
+              <button type="submit" className="btn btn-primary">
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    )}
+
+    {/* New folder modal */}
+    {showNewFolderModal && (
+      <div className="modal">
+        <div className="modal-content">
+          <h3>Create New Folder</h3>
+          <div className="form-group">
+            <label>Folder Name</label>
+            <input 
+              type="text" 
+              value={newFolderName}
+              onChange={(e) => setNewFolderName(e.target.value)}
+              placeholder="Enter folder name"
             />
+          </div>
+          
+          <div className="modal-buttons">
             <button 
               className="btn btn-secondary"
-              onClick={refreshContent}
-              disabled={refreshing}
-              title="Refresh content"
+              onClick={() => setShowNewFolderModal(false)}
             >
-              <RefreshCw size={18} className={refreshing ? "spin" : ""} />
+              Cancel
             </button>
             <button 
-              className="btn btn-secondary"
-              onClick={forceCompleteRefresh}
-              disabled={refreshing}
-              title="Force complete refresh"
+              className="btn btn-primary"
+              onClick={createNewFolder}
+              disabled={!newFolderName}
             >
-              <RefreshCw size={18} />
-              <span>Force</span>
-            </button>
-            <button className="btn">
-              <Menu size={18} />
+              Create
             </button>
           </div>
         </div>
-      </header>
-
-      {/* Main content */}
-      <div className="main-content">
-        {/* Sidebar */}
-        <Sidebar currentPath={currentPath} navigateToFolder={navigateToFolder} fileSystem={fileSystem} />
-
-        {/* Content area */}
-        <div className="content-area">
-          {/* Toolbar */}
-          <div className="toolbar">
-            <div className="toolbar-left">
-              <button 
-                className="btn btn-secondary"
-                onClick={navigateUp}
-                disabled={currentPath === '/'}
-                style={{marginRight: '10px'}}
-              >
-                <ArrowLeft size={18} />
-              </button>
-              {renderBreadcrumbs()}
-            </div>
-            
-            <div className="toolbar-actions">
-              <button 
-                className="btn btn-primary"
-                onClick={() => setShowUploadModal(true)}
-              >
-                <Upload size={16} />
-                <span>Upload</span>
-              </button>
-              
-              <button 
-                className="btn btn-secondary"
-                onClick={() => setShowNewFolderModal(true)}
-              >
-                <FolderPlus size={16} />
-                <span>New Folder</span>
-              </button>
-              
-              {/* Show New Subcategory button when in a main category */}
-              {isMainCategory() && (
-                <button 
-                  className="btn btn-secondary"
-                  onClick={() => {
-                    // Set the current category as parent
-                    const categoryName = currentPath.split('/').filter(segment => segment)[0];
-                    setParentCategoryForSubcategory(categoryName);
-                    setShowNewSubcategoryModal(true);
-                  }}
-                  title="Create subcategory in this category"
-                >
-                  <FolderPlus size={16} />
-                  <span>New Subcategory</span>
-                </button>
-              )}
-              
-              {selectedItems.length > 0 && (
-                <button 
-                  className="btn btn-danger"
-                  onClick={deleteSelectedItems}
-                >
-                  <Trash size={16} />
-                  <span>Delete</span>
-                </button>
-              )}
-              
-              <button 
-                className={`btn btn-secondary ${viewMode === 'grid' ? 'active' : ''}`}
-                onClick={() => setViewMode('grid')}
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6z" />
-                  <path d="M14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6z" />
-                  <path d="M4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2z" />
-                  <path d="M14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                </svg>
-              </button>
-              
-              <button 
-                className={`btn btn-secondary ${viewMode === 'list' ? 'active' : ''}`}
-                onClick={() => setViewMode('list')}
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M4 6h16M4 10h16M4 14h16M4 18h16" />
-                </svg>
-              </button>
-            </div>
-          </div>
-
-       {/* File listing */}
-<div className="file-container">
-  {filteredItems.length === 0 ? (
-     <div className="empty-folder">
-    <div className="folder-icon" style={{
-      width: '48px', 
-      height: '48px', 
-      marginBottom: '0.5rem',
-      backgroundImage: `url(${baseFolderIcon})`
-    }}></div>
-    <p>{searchTerm ? 'No items match your search' : 'This folder is empty'}</p>
-  </div>
-  ) : viewMode === 'list' ? (
-    <div className="file-list">
-      <div className="file-list-header">
-        <div>Name</div>
-        <div>Type</div>
-        <div>Modified</div>
-        <div></div>
       </div>
-      
-      {filteredItems.map((item) => (
-  <div 
-    key={item.path}
-    className={`file-item ${selectedItems.includes(item.path) ? 'selected' : ''}`}
-    onClick={() => toggleSelectItem(item)}
-    onDoubleClick={() => handleItemDoubleClick(item)}
-  >
-    <div className="file-name">
-      {getFileIcon(item.type, item)}
-      <span>{item.name}</span>
-    </div>
-    <div className="file-type">{item.type}</div>
-    <div className="file-modified">{item.lastModified || '--'}</div>
-    <div className="file-actions">
-      {item.type !== 'folder' && (
-        <button className="btn btn-small">
-          <Download size={16} />
-        </button>
-      )}
-    </div>
-  </div>
-))}
-    </div>
-  ) : (
-    <div className="category-sections">
-      {(() => {
-        // Function to determine grid category sections based on current path and content
-        const getGridSections = () => {
-          // Default categorization for root/global toolkit
-          if (currentPath === '/') {
-            return [
-              {
-                name: 'Business',
-                color: 'business', // green theme
-                matcher: (item) => {
-                  const path = item.path?.toLowerCase() || "";
-                  const category = item.content?.category?.toLowerCase() || "";
-                  return (
-                    path.includes('corporate') || 
-                    path.includes('finance') || 
-                    path.includes('marketing') ||
-                    category.includes('corporate') || 
-                    category.includes('finance') || 
-                    category.includes('marketing')
-                  );
-                }
-              },
-              {
-                name: 'Career Preparation',
-                color: 'career', // orange theme
-                matcher: (item) => {
-                  const path = item.path?.toLowerCase() || "";
-                  const category = item.content?.category?.toLowerCase() || "";
-                  return (
-                    path.includes('job search') || 
-                    path.includes('navigating school') || 
-                    path.includes('portfolio') ||
-                    category.includes('job search') || 
-                    category.includes('navigating') || 
-                    category.includes('portfolio')
-                  );
-                }
-              },
-              {
-                name: 'Design',
-                color: 'design', // blue theme
-                matcher: (item) => {
-                  const path = item.path?.toLowerCase() || "";
-                  const category = item.content?.category?.toLowerCase() || "";
-                  return (
-                    path.includes('graphic design') || 
-                    path.includes('uiux') || 
-                    path.includes('resources') ||
-                    category.includes('graphic') || 
-                    category.includes('design') || 
-                    category.includes('UIUX') || 
-                    category.includes('resources')
-                  );
-                }
-              }
-            ];
-          }
-          
-          // If in a specific category/subcategory, create a single section or no sections
-          const pathSegments = currentPath.split('/').filter(segment => segment);
-          
-          // If we're in a specific category or subcategory
-  // If in a specific category/subcategory, determine color
+    )}
 
-// If we're in a specific category or subcategory
-if (pathSegments.length > 0) {
-  // Always use the first segment (parent category) to determine color theme
-  const parentCategory = pathSegments[0].toLowerCase();
-  let color = 'default';
-  
-  // Determine color based on parent category (not subcategory)
-  if (['corporate', 'finance', 'marketing'].includes(parentCategory)) {
-    color = 'business';
-  } else if (['job search', 'navigating school', 'portfolio'].includes(parentCategory)) {
-    color = 'career';
-  } else if (['graphic design', 'uiux', 'resources'].includes(parentCategory)) {
-    color = 'design';
-  }
-  
-  // Create the appropriate section
-  return [
-    {
-      name: pathSegments[pathSegments.length - 1],
-      color: color,
-      matcher: (item) => {
-        const path = item.path?.toLowerCase() || "";
-        const category = item.content?.category?.toLowerCase() || "";
-        const searchTerm = pathSegments[pathSegments.length - 1].toLowerCase();
-        
-        return (
-          path.includes(searchTerm) || 
-          category.includes(searchTerm)
-        );
-      }
-    }
-  ];
-}
-  
-  // Fallback: if no specific categorization is found
-  return [
-    {
-      name: 'All Items',
-      color: 'default',
-      matcher: () => true
-    }
-  ];
-};
-        // Get grid sections based on current context
-        const gridSections = getGridSections();
-
-        // Render sections
-        return gridSections.map(section => {
-          // Filter items for this section
-          const sectionItems = filteredItems.filter(section.matcher);
-          
-          // Only render section if it has items
-          if (sectionItems.length === 0) return null;
-
-          return (
-            <div 
-              key={section.name} 
-              className="category-section" 
-              data-category={section.name}
-              data-parent-category={getParentCategory(currentPath)}
-            >
-              <h2 className="category-heading">{section.name}</h2>
-              <div className="file-grid">
-                {sectionItems.map((item) => {
-                  // Determine parent category for this item
-                  const parentCategory = getParentCategory(item.path || currentPath);
-                  
-                  return (
-                    <div 
-                      key={item.path}
-                      className={`grid-item ${selectedItems.includes(item.path) ? 'selected' : ''}`}
-                      onClick={() => toggleSelectItem(item)}
-                      onDoubleClick={() => handleItemDoubleClick(item)}
-                      data-item-category={parentCategory}
-                      data-item-type={item.type}
-                    >
-                      <div className="grid-item-icon">
-                        {getFileIcon(item.type, item)}
-                      </div>
-                      <div className="grid-item-name">
-                        {item.name}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          );
-        }).filter(Boolean) // Remove null sections
-      })()}
-    </div>
-  )}
-</div>
-</div>
-</div>
-
-  {/* Upload modal */}
-  {showUploadModal && (
-    <div className="modal">
-      <div className="modal-content">
-        <h3>Upload File</h3>
-        <form onSubmit={handleFileUpload}>
-          <div className="form-group">
-            <label>File Name</label>
-            <input 
-              type="text" 
-              name="fileName" 
-              placeholder="Enter file name"
-              required
-            />
-          </div>
+    {/* New subcategory modal */}
+    {showNewSubcategoryModal && (
+      <div className="modal">
+        <div className="modal-content">
+          <h3>Create New Subcategory</h3>
           
           <div className="form-group">
-            <label>File Type</label>
-            <select name="fileType">
-              <option value="post">Blog Post (.post)</option>
-              <option value="link">Link (.link)</option>
-              <option value="pdf">PDF Document (.pdf)</option>
-              <option value="document">Document (.doc)</option>
-            </select>
-          </div>
-          
-          <div className="form-group">
-            <label>Category</label>
+            <label>Parent Category</label>
             <select 
-              name="category"
-              value={selectedCategory}
-              onChange={handleCategoryChange}
+              value={parentCategoryForSubcategory}
+              onChange={(e) => setParentCategoryForSubcategory(e.target.value)}
+              disabled={parentCategoryForSubcategory !== ''}
             >
               <option value="">Select Category</option>
               {categories.map(category => (
@@ -1160,118 +1221,35 @@ if (pathSegments.length > 0) {
             </select>
           </div>
           
-          {selectedCategory && subcategories.length > 0 && (
-            <div className="form-group">
-              <label>Subcategory</label>
-              <select name="subcategory">
-                <option value="">None (add to main category)</option>
-                {subcategories.map(subcat => (
-                  <option key={subcat} value={subcat}>{subcat}</option>
-                ))}
-              </select>
-            </div>
-          )}
+          <div className="form-group">
+            <label>Subcategory Name</label>
+            <input 
+              type="text" 
+              value={newSubcategoryName}
+              onChange={(e) => setNewSubcategoryName(e.target.value)}
+              placeholder="Enter subcategory name"
+            />
+          </div>
           
           <div className="modal-buttons">
             <button 
-              type="button" 
               className="btn btn-secondary"
-              onClick={() => setShowUploadModal(false)}
+              onClick={() => setShowNewSubcategoryModal(false)}
             >
               Cancel
             </button>
-            <button type="submit" className="btn btn-primary">
-              Upload
+            <button 
+              className="btn btn-primary"
+              onClick={createNewSubcategory}
+              disabled={!newSubcategoryName || !parentCategoryForSubcategory}
+            >
+              Create
             </button>
           </div>
-        </form>
-      </div>
-    </div>
-  )}
-
-  {/* New folder modal */}
-  {showNewFolderModal && (
-    <div className="modal">
-      <div className="modal-content">
-        <h3>Create New Folder</h3>
-        <div className="form-group">
-          <label>Folder Name</label>
-          <input 
-            type="text" 
-            value={newFolderName}
-            onChange={(e) => setNewFolderName(e.target.value)}
-            placeholder="Enter folder name"
-          />
-        </div>
-        
-        <div className="modal-buttons">
-          <button 
-            className="btn btn-secondary"
-            onClick={() => setShowNewFolderModal(false)}
-          >
-            Cancel
-          </button>
-          <button 
-            className="btn btn-primary"
-            onClick={createNewFolder}
-            disabled={!newFolderName}
-          >
-            Create
-          </button>
         </div>
       </div>
-    </div>
-  )}
-
-  {/* New subcategory modal */}
-  {showNewSubcategoryModal && (
-    <div className="modal">
-      <div className="modal-content">
-        <h3>Create New Subcategory</h3>
-        
-        <div className="form-group">
-          <label>Parent Category</label>
-          <select 
-            value={parentCategoryForSubcategory}
-            onChange={(e) => setParentCategoryForSubcategory(e.target.value)}
-            disabled={parentCategoryForSubcategory !== ''}
-          >
-            <option value="">Select Category</option>
-            {categories.map(category => (
-              <option key={category} value={category}>{category}</option>
-            ))}
-          </select>
-        </div>
-        
-        <div className="form-group">
-          <label>Subcategory Name</label>
-          <input 
-            type="text" 
-            value={newSubcategoryName}
-            onChange={(e) => setNewSubcategoryName(e.target.value)}
-            placeholder="Enter subcategory name"
-          />
-        </div>
-        
-        <div className="modal-buttons">
-          <button 
-            className="btn btn-secondary"
-            onClick={() => setShowNewSubcategoryModal(false)}
-          >
-            Cancel
-          </button>
-          <button 
-            className="btn btn-primary"
-            onClick={createNewSubcategory}
-            disabled={!newSubcategoryName || !parentCategoryForSubcategory}
-          >
-            Create
-          </button>
-        </div>
-      </div>
-    </div>
-  )}
-</div>
+    )}
+  </div>
 );
 };
 
