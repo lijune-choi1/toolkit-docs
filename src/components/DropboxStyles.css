@@ -235,8 +235,7 @@
 
 /* Category headers */
 .sidebar-category-header {
-  font-family: "DotGothic16", sans-serif;
-
+  font-family: "argent-pixel-cf", sans-serif;
   font-size: 0.875rem;
   font-weight: 500;
   color: #6b7280;
@@ -596,7 +595,8 @@
 }
 
 .title-section h1 {
-  font-family: "DotGothic16", sans-serif;
+  font-family: "argent-pixel-cf", sans-serif;
+
   font-size: 1.8rem;
   margin-bottom: 0.5rem;
   margin-top: 2rem;
@@ -790,7 +790,8 @@
 }
 
 .category-heading {
-  font-family: "DotGothic16", sans-serif;
+  font-family: "argent-pixel-cf", sans-serif;
+
   font-size: 2rem;
   font-weight: 600;
   color: #1f2937;
