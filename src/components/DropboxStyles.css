@@ -5,7 +5,7 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #f9fafb;
+  background-color: #ffffff;
 }
 
 .main-content {
@@ -18,7 +18,7 @@
 .app-header {
   background-color: white;
   border-bottom: 1px solid #e5e7eb;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  /* box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); */
 }
 
 .header-content {
@@ -40,7 +40,7 @@
 }
 
 .app-title {
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #000000;
 }
@@ -235,6 +235,8 @@
 
 /* Category headers */
 .sidebar-category-header {
+  font-family: "DotGothic16", sans-serif;
+
   font-size: 0.875rem;
   font-weight: 500;
   color: #6b7280;
@@ -246,6 +248,7 @@
 
 /* Navigation items */
 .sidebar-nav-item {
+  
   display: flex;
   align-items: center;
   padding: 0.5rem 1rem;
@@ -299,45 +302,45 @@
 
 /* Business category icons */
 .corporate-icon {
-  background-color: #dcfce7;
+  background-color: #e3e3e3;
 }
 
 .finance-icon {
-  background-color: #d1fae5;
+  background-color: #e3e3e3;
 }
 
 .marketing-icon {
-  background-color: #e0f2fe;
+  background-color: #e3e3e3;
 }
 
 /* Career Preparation category icons */
 .jobsearch-icon {
-  background-color: #fff7ed;
+  background-color: #e3e3e3;
 }
 
 .school-icon {
-  background-color: #ffedd5;
+  background-color: #e3e3e3;
 }
 
 .portfolio-icon {
-  background-color: #fef3c7;
+  background-color: #e3e3e3;
 }
 
 /* Design category icons */
 .design-icon {
-  background-color: #f5d0fe;
+  background-color: #e3e3e3;
 }
 
 .uiux-icon {
-  background-color: #e0e7ff;
+  background-color: #e3e3e3;
 }
 
 .resources-icon {
-  background-color: #fee2e2;
+  background-color: #e3e3e3;
 }
 
 .templates-icon {
-  background-color: #dbeafe;
+  background-color: #e3e3e3;
 }
 
 /* Icon content (using SVG masks) */
@@ -358,7 +361,7 @@
   display: block;
   width: 14px;
   height: 14px;
-  background-color: #16a34a;
+  background-color: #000000;
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='2' width='16' height='20' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='12' y1='18' x2='12.01' y2='18'%3E%3C/line%3E%3C/svg%3E");
   mask-size: cover;
   mask-repeat: no-repeat;
@@ -369,7 +372,7 @@
   display: block;
   width: 14px;
   height: 14px;
-  background-color: #10b981;
+  background-color: #000000;
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6'%3E%3C/path%3E%3C/svg%3E");
   mask-size: cover;
   mask-repeat: no-repeat;
@@ -380,7 +383,7 @@
   display: block;
   width: 14px;
   height: 14px;
-  background-color: #0ea5e9;
+  background-color: #000000;
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m18 8 4 4-4 4'/><path d='m2 12 16 0'/><path d='m2 17 12 0'/><path d='m2 7 9 0'/%3E%3C/svg%3E");
   mask-size: cover;
   mask-repeat: no-repeat;
@@ -391,7 +394,7 @@
   display: block;
   width: 14px;
   height: 14px;
-  background-color: #f97316;
+  background-color: #000000;
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='7' width='20' height='14' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16'%3E%3C/path%3E%3C/svg%3E");
   mask-size: cover;
   mask-repeat: no-repeat;
@@ -402,7 +405,7 @@
   display: block;
   width: 14px;
   height: 14px;
-  background-color: #ea580c;
+  background-color: #000000;
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m20 6-8.5 8.5-6-6L2 12l8.5 8.5L22 10l-2-4ZM20 6l2 4'/><path d='M13.5 3.5 17 7'/><path d='M19.5 13.5 22 16'/><path d='M10 5 8 3'/><path d='M5 10 3 8'/><path d='m14 21-4-4'/><path d='m3 22 3-3'/%3E%3C/svg%3E");
   mask-size: cover;
   mask-repeat: no-repeat;
@@ -413,7 +416,7 @@
   display: block;
   width: 14px;
   height: 14px;
-  background-color: #d97706;
+  background-color: #000000;
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'%3E%3C/path%3E%3Ccircle cx='12' cy='7' r='4'%3E%3C/circle%3E%3C/svg%3E");
   mask-size: cover;
   mask-repeat: no-repeat;
@@ -424,7 +427,7 @@
   display: block;
   width: 14px;
   height: 14px;
-  background-color: #d946ef;
+  background-color: #000000;
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cpath d='M8 14s1.5 2 4 2 4-2 4-2'%3E%3C/path%3E%3Cline x1='9' y1='9' x2='9.01' y2='9'%3E%3C/line%3E%3Cline x1='15' y1='9' x2='15.01' y2='9'%3E%3C/line%3E%3C/svg%3E");
   mask-size: cover;
   mask-repeat: no-repeat;
@@ -435,7 +438,7 @@
   display: block;
   width: 14px;
   height: 14px;
-  background-color: #6366f1;
+  background-color: #000000;
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cpath d='M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14'%3E%3C/path%3E%3C/svg%3E");
   mask-size: cover;
   mask-repeat: no-repeat;
@@ -446,7 +449,7 @@
   display: block;
   width: 14px;
   height: 14px;
-  background-color: #ef4444;
+  background-color: #000000;
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48'%3E%3C/path%3E%3C/svg%3E");
   mask-size: cover;
   mask-repeat: no-repeat;
@@ -457,7 +460,7 @@
   display: block;
   width: 14px;
   height: 14px;
-  background-color: #3b82f6;
+  background-color: #000000;
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z'%3E%3C/path%3E%3Cpolyline points='14 2 14 8 20 8'%3E%3C/polyline%3E%3Cpath d='M8 13h2'%3E%3C/path%3E%3Cpath d='M8 17h2'%3E%3C/path%3E%3Cpath d='M14 13h2'%3E%3C/path%3E%3Cpath d='M14 17h2'%3E%3C/path%3E%3C/svg%3E");
   mask-size: cover;
   mask-repeat: no-repeat;
@@ -593,6 +596,7 @@
 }
 
 .title-section h1 {
+  font-family: "DotGothic16", sans-serif;
   font-size: 1.8rem;
   margin-bottom: 0.5rem;
   margin-top: 2rem;
@@ -710,7 +714,7 @@
   cursor: pointer;
   aspect-ratio: 16/9;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); */
   margin-bottom: 2rem; /* Add space below for the name */
 }
 
@@ -750,6 +754,8 @@
   height: 250px;
   background-size: contain;
   background-position: center;
+  border: 1px solid rgb(238, 238, 238);
+
 }
 
 .grid-item .docs-icon {
@@ -769,198 +775,6 @@
   box-shadow: 0 0 0 3px #2563eb;
 }
 
-/* Business subcategory items */
-.category-section[data-parent-category="Business"] .grid-item {
-  background: linear-gradient(135deg, rgb(187, 255, 208) 20%, #c6ff80 100%);
-}
-
-/* Career Preparation subcategory items */
-.category-section[data-parent-category="Career Preparation"] .grid-item {
-  background: linear-gradient(135deg, rgb(255, 191, 122) 20%, #feffe0 100%);
-}
-
-/* Design subcategory items */
-.category-section[data-parent-category="Design"] .grid-item {
-  background: linear-gradient(135deg, rgb(134, 178, 255) 20%, #e3f2fd 100%);
-}
-/* Business category and its subcategories */
-.category-section[data-category^="Corporate"] .grid-item,
-.category-section[data-category^="Finance"] .grid-item,
-.category-section[data-category^="Marketing"] .grid-item,
-.category-section[data-category^="R&D"] .grid-item,
-.category-section[data-category="Business"] .grid-item {
-  background: linear-gradient(135deg, rgb(187, 255, 208) 20%, #c6ff80 100%);
-}
-
-/* Career Preparation category and its subcategories */
-.category-section[data-category^="Job Search"] .grid-item,
-.category-section[data-category^="Navigating School"] .grid-item,
-.category-section[data-category^="Portfolio"] .grid-item,
-.category-section[data-category="Career Preparation"] .grid-item {
-  background: linear-gradient(135deg, rgb(255, 191, 122) 20%, #feffe0 100%);
-}
-
-/* Design category and its subcategories */
-.category-section[data-category^="Graphic Design"] .grid-item,
-.category-section[data-category^="UIUX"] .grid-item,
-.category-section[data-category^="Resources"] .grid-item,
-.category-section[data-category="Design"] .grid-item {
-  background: linear-gradient(135deg, rgb(134, 178, 255) 20%, #e3f2fd 100%);
-}
-
-/* Business category link icons */
-.category-section[data-category^="Corporate"] .grid-item[data-type="link"] .file-icon,
-.category-section[data-category^="Finance"] .grid-item[data-type="link"] .file-icon,
-.category-section[data-category^="Marketing"] .grid-item[data-type="link"] .file-icon,
-.category-section[data-category^="R&D"] .grid-item[data-type="link"] .file-icon,
-.category-section[data-category="Business"] .grid-item[data-type="link"] .file-icon {
-  color: #4caf50 !important; /* Green */
-}
-
-/* Career Preparation link icons */
-.category-section[data-category^="Job Search"] .grid-item[data-type="link"] .file-icon,
-.category-section[data-category^="Navigating School"] .grid-item[data-type="link"] .file-icon,
-.category-section[data-category^="Portfolio"] .grid-item[data-type="link"] .file-icon,
-.category-section[data-category="Career Preparation"] .grid-item[data-type="link"] .file-icon {
-  color: #ff9800 !important; /* Orange */
-}
-
-/* Design link icons */
-.category-section[data-category^="Graphic Design"] .grid-item[data-type="link"] .file-icon,
-.category-section[data-category^="UIUX"] .grid-item[data-type="link"] .file-icon,
-.category-section[data-category^="Resources"] .grid-item[data-type="link"] .file-icon,
-.category-section[data-category="Design"] .grid-item[data-type="link"] .file-icon {
-  color: #2196f3 !important; /* Blue */
-}
-
-/* Business PDF icons */
-.category-section[data-category^="Corporate"] .grid-item[data-type="pdf"] .file-icon,
-.category-section[data-category^="Finance"] .grid-item[data-type="pdf"] .file-icon,
-.category-section[data-category^="Marketing"] .grid-item[data-type="pdf"] .file-icon,
-.category-section[data-category^="R&D"] .grid-item[data-type="pdf"] .file-icon,
-.category-section[data-category="Business"] .grid-item[data-type="pdf"] .file-icon {
-  color: #4caf50 !important; /* Green */
-}
-
-/* Career Preparation PDF icons */
-.category-section[data-category^="Job Search"] .grid-item[data-type="pdf"] .file-icon,
-.category-section[data-category^="Navigating School"] .grid-item[data-type="pdf"] .file-icon,
-.category-section[data-category^="Portfolio"] .grid-item[data-type="pdf"] .file-icon,
-.category-section[data-category="Career Preparation"] .grid-item[data-type="pdf"] .file-icon {
-  color: #ff9800 !important; /* Orange */
-}
-
-/* Design PDF icons */
-.category-section[data-category^="Graphic Design"] .grid-item[data-type="pdf"] .file-icon,
-.category-section[data-category^="UIUX"] .grid-item[data-type="pdf"] .file-icon,
-.category-section[data-category^="Resources"] .grid-item[data-type="pdf"] .file-icon,
-.category-section[data-category="Design"] .grid-item[data-type="pdf"] .file-icon {
-  color: #2196f3 !important; /* Blue */
-}
-
-/* Business blog icons */
-.category-section[data-category^="Corporate"] .grid-item[data-type="blog"] .docs-icon,
-.category-section[data-category^="Finance"] .grid-item[data-type="blog"] .docs-icon,
-.category-section[data-category^="Marketing"] .grid-item[data-type="blog"] .docs-icon,
-.category-section[data-category^="R&D"] .grid-item[data-type="blog"] .docs-icon,
-.category-section[data-category="Business"] .grid-item[data-type="blog"] .docs-icon {
-  border-left: 2px solid #4caf50; /* Green */
-}
-
-/* Career Preparation blog icons */
-.category-section[data-category^="Job Search"] .grid-item[data-type="blog"] .docs-icon,
-.category-section[data-category^="Navigating School"] .grid-item[data-type="blog"] .docs-icon,
-.category-section[data-category^="Portfolio"] .grid-item[data-type="blog"] .docs-icon,
-.category-section[data-category="Career Preparation"] .grid-item[data-type="blog"] .docs-icon {
-  border-left: 2px solid #ff9800; /* Orange */
-}
-
-/* Design blog icons */
-.category-section[data-category^="Graphic Design"] .grid-item[data-type="blog"] .docs-icon,
-.category-section[data-category^="UIUX"] .grid-item[data-type="blog"] .docs-icon,
-.category-section[data-category^="Resources"] .grid-item[data-type="blog"] .docs-icon,
-.category-section[data-category="Design"] .grid-item[data-type="blog"] .docs-icon {
-  border-left: 2px solid #2196f3; /* Blue */
-}
-/* Business category items including links */
-.category-section[data-category="Business"] .grid-item,
-.category-section[data-category="Corporate"] .grid-item,
-.category-section[data-category="Finance"] .grid-item,
-.category-section[data-category="Marketing"] .grid-item,
-.category-section[data-category="R&D"] .grid-item,
-.category-section[data-category="Business"] .grid-item[data-type="link"],
-.category-section[data-category="Corporate"] .grid-item[data-type="link"],
-.category-section[data-category="Finance"] .grid-item[data-type="link"],
-.category-section[data-category="Marketing"] .grid-item[data-type="link"],
-.category-section[data-category="R&D"] .grid-item[data-type="link"] {
-  background: linear-gradient(135deg, rgb(187, 255, 208) 20%, #c6ff80 100%);
-}
-
-/* Career Preparation items including links */
-.category-section[data-category="Career Preparation"] .grid-item,
-.category-section[data-category="Job Search"] .grid-item,
-.category-section[data-category="Navigating School"] .grid-item,
-.category-section[data-category="Portfolio"] .grid-item,
-.category-section[data-category="Career Preparation"] .grid-item[data-type="link"],
-.category-section[data-category="Job Search"] .grid-item[data-type="link"],
-.category-section[data-category="Navigating School"] .grid-item[data-type="link"],
-.category-section[data-category="Portfolio"] .grid-item[data-type="link"] {
-  background: linear-gradient(135deg, rgb(255, 191, 122) 20%, #feffe0 100%);
-}
-
-/* Design items including links */
-.category-section[data-category="Design"] .grid-item,
-.category-section[data-category="Graphic Design"] .grid-item,
-.category-section[data-category="UIUX"] .grid-item,
-.category-section[data-category="Resources"] .grid-item,
-.category-section[data-category="Design"] .grid-item[data-type="link"],
-.category-section[data-category="Graphic Design"] .grid-item[data-type="link"],
-.category-section[data-category="UIUX"] .grid-item[data-type="link"],
-.category-section[data-category="Resources"] .grid-item[data-type="link"] {
-  background: linear-gradient(135deg, rgb(134, 178, 255) 20%, #e3f2fd 100%);
-}
-
-/* Make sure link icons match their category */
-.category-section[data-category="Business"] .grid-item[data-type="link"] .file-icon,
-.category-section[data-category="Corporate"] .grid-item[data-type="link"] .file-icon,
-.category-section[data-category="Finance"] .grid-item[data-type="link"] .file-icon,
-.category-section[data-category="Marketing"] .grid-item[data-type="link"] .file-icon,
-.category-section[data-category="R&D"] .grid-item[data-type="link"] .file-icon {
-  color: #4caf50 !important; /* Green */
-}
-
-.category-section[data-category="Career Preparation"] .grid-item[data-type="link"] .file-icon,
-.category-section[data-category="Job Search"] .grid-item[data-type="link"] .file-icon,
-.category-section[data-category="Navigating School"] .grid-item[data-type="link"] .file-icon,
-.category-section[data-category="Portfolio"] .grid-item[data-type="link"] .file-icon {
-  color: #ff9800 !important; /* Orange */
-}
-
-.category-section[data-category="Design"] .grid-item[data-type="link"] .file-icon,
-.category-section[data-category="Graphic Design"] .grid-item[data-type="link"] .file-icon,
-.category-section[data-category="UIUX"] .grid-item[data-type="link"] .file-icon,
-.category-section[data-category="Resources"] .grid-item[data-type="link"] .file-icon {
-  color: #2196f3 !important; /* Blue */
-}
-
-/* Similarly for blog/pdf types */
-.category-section[data-category="Business"] .grid-item[data-type="blog"] .docs-icon,
-.category-section[data-category="Corporate"] .grid-item[data-type="blog"] .docs-icon,
-.category-section[data-category="Finance"] .grid-item[data-type="blog"] .docs-icon,
-.category-section[data-category="Marketing"] .grid-item[data-type="blog"] .docs-icon,
-.category-section[data-category="R&D"] .grid-item[data-type="blog"] .docs-icon {
-  border-left: 2px solid #4caf50; /* Green */
-}
-
-.category-section[data-category="Business"] .grid-item[data-type="pdf"] .file-icon,
-.category-section[data-category="Corporate"] .grid-item[data-type="pdf"] .file-icon,
-.category-section[data-category="Finance"] .grid-item[data-type="pdf"] .file-icon,
-.category-section[data-category="Marketing"] .grid-item[data-type="pdf"] .file-icon,
-.category-section[data-category="R&D"] .grid-item[data-type="pdf"] .file-icon {
-  color: #4caf50 !important; /* Green */
-}
-
-
 /* Category section styling */
 .category-sections {
   display: flex;
@@ -976,6 +790,7 @@
 }
 
 .category-heading {
+  font-family: "DotGothic16", sans-serif;
   font-size: 2rem;
   font-weight: 600;
   color: #1f2937;

@@ -46,6 +46,8 @@
   }
   
   .mdn-title {
+    font-family: "DotGothic16", sans-serif;
+
     font-size: 2.25rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
@@ -87,7 +89,7 @@
   .mdn-summary {
     padding: 1rem;
     background-color: #f9f9fb;
-    border-left: 4px solid #0253a5;
+    border-left: 4px solid #000000;
     border-radius: 0 0.25rem 0.25rem 0;
     margin-bottom: 1.5rem;
   }
@@ -96,7 +98,7 @@
     font-size: 1.25rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
-    color: #0253a5;
+    color: #000000;
   }
   
   .mdn-summary p {
@@ -131,7 +133,7 @@
   }
   
   .mdn-toc a {
-    color: #0253a5;
+    color: #000000;
     text-decoration: none;
   }
   
@@ -350,7 +352,7 @@
   align-items: center;
   justify-content: center;
   padding: 1rem 2rem;
-  background-color: #0253a5;
+  background-color: #000000;
   color: white;
   border-radius: 0.375rem;
   font-weight: 600;
@@ -362,7 +364,7 @@
 }
 
 .mdn-link-button:hover {
-  background-color: #0141a8;
+  background-color: #000000;
   text-decoration: none;
 }
 
