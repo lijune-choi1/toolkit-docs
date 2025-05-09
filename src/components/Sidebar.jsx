@@ -229,21 +229,7 @@ const Sidebar = ({ currentPath, navigateToFolder, fileSystem }) => {
               </>
             )}
 
-            {/* Other folders that don't fit categories */}
-            {categorizedFolders['Other'].length > 0 && (
-              <>
-                {categorizedFolders['Other'].map((folder, index) => (
-                  <button
-                    key={`other-${index}`}
-                    className={`sidebar-nav-item ${folder.active ? 'active' : ''}`}
-                    onClick={() => navigateToFolder(folder.path)}
-                  >
-                    <div className="sidebar-icon folder-icon"></div>
-                    <span>{folder.name}</span>
-                  </button>
-                ))}
-              </>
-            )}
+           
           </>
         ) : (
           // Fallback to static categories if no folders exist

@@ -1,4 +1,4 @@
-// src/components/Navbar.jsx - Fixed infinite update loop issue
+// src/components/Navbar.jsx - Updated with custom submit icon
 
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowLeft, Menu, RefreshCw, ChevronDown, Search, Check } from 'lucide-react';
@@ -239,11 +239,13 @@ const Navbar = ({
         </div>
         
         <div className="header-right">
-          {/* Submit button */}
+          {/* Submit button with custom icon */}
           <button 
-            className="btn btn-primary"
+            className="btn btn-primary submit-btn"
             onClick={() => setShowSubmitModal(true)}
+            aria-label="Submit"
           >
+            <div className="navbar-icon submit-icon"></div>
             <span>Submit</span>
           </button>
           

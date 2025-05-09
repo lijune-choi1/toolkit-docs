@@ -1,0 +1,32 @@
+<svg width="145" height="165" viewBox="0 0 145 165" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M61.875 165H82.5V144.375H61.875V165Z" fill="black"/>
+<path d="M123.75 165H144.375V144.375H123.75V165Z" fill="black"/>
+<path d="M123.75 144.375H144.375V123.75H123.75V144.375Z" fill="black"/>
+<path d="M123.75 123.75H144.375V103.125H123.75V123.75Z" fill="black"/>
+<path d="M123.75 103.125H144.375V82.5H123.75V103.125Z" fill="black"/>
+<path d="M123.75 82.5H144.375V61.875H123.75V82.5Z" fill="black"/>
+<path d="M82.5 61.875H103.125V41.25H82.5V61.875Z" fill="black"/>
+<path d="M103.125 61.875H123.75V41.25H103.125V61.875Z" fill="black"/>
+<path d="M82.5 41.25H103.125V20.625L82.5 20.625V41.25Z" fill="black"/>
+<path d="M103.125 165H123.75V144.375H103.125V165Z" fill="black"/>
+<path d="M41.25 103.125H61.875V82.5H41.25V103.125Z" fill="black"/>
+<path d="M82.5 103.125H103.125V82.5H82.5V103.125Z" fill="black"/>
+<path d="M82.5 165H103.125V144.375H82.5V165Z" fill="black"/>
+<path d="M41.25 165H61.875V144.375H41.25V165Z" fill="black"/>
+<path d="M20.625 165H41.25V144.375H20.625L20.625 165Z" fill="black"/>
+<path d="M41.25 20.625L61.875 20.625V0L41.25 0V20.625Z" fill="black"/>
+<path d="M61.875 20.625L82.5 20.625V0L61.875 0V20.625Z" fill="black"/>
+<path d="M123.75 41.25H144.375V20.625L123.75 20.625V41.25Z" fill="black"/>
+<path d="M103.125 20.625L123.75 20.625V0L103.125 0V20.625Z" fill="black"/>
+<path d="M82.5 20.625L103.125 20.625V0L82.5 0V20.625Z" fill="black"/>
+<path d="M123.75 61.875H144.375V41.25H123.75V61.875Z" fill="black"/>
+<path d="M20.625 20.625L41.25 20.625V0L20.625 0L20.625 20.625Z" fill="black"/>
+<path d="M0 20.625L20.625 20.625L20.625 0L0 0L0 20.625Z" fill="black"/>
+<path d="M0 41.25H20.625L20.625 20.625L0 20.625L0 41.25Z" fill="black"/>
+<path d="M0 61.875H20.625L20.625 41.25H0L0 61.875Z" fill="black"/>
+<path d="M0 82.5H20.625L20.625 61.875H0L0 82.5Z" fill="black"/>
+<path d="M0 103.125H20.625L20.625 82.5H0L0 103.125Z" fill="black"/>
+<path d="M0 123.75H20.625L20.625 103.125H0L0 123.75Z" fill="black"/>
+<path d="M0 144.375H20.625L20.625 123.75H0L0 144.375Z" fill="black"/>
+<path d="M0 165H20.625L20.625 144.375H0L0 165Z" fill="black"/>
+</svg>

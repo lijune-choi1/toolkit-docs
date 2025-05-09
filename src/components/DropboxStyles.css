@@ -914,6 +914,9 @@
 }
 
 /* Icon styles */
+/* Replace the existing icon styles with these */
+
+/* Icon styles */
 .sidebar-icon {
   width: 28px;
   height: 28px;
@@ -923,149 +926,110 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-}
-
-/* Icon backgrounds */
-.all-icon {
   background-color: #f3f4f6;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 16px 16px; /* Adjust based on your icon size needs */
 }
 
-/* Business category icons */
-.corporate-icon,
-.finance-icon,
-.marketing-icon,
-.jobsearch-icon,
-.school-icon,
-.portfolio-icon,
-.design-icon,
-.uiux-icon,
-.resources-icon,
-.templates-icon {
-  background-color: #e3e3e3;
+/* Custom icons using direct background image paths */
+.all-icon {
+  background-image: url('../../public/assets/custom-icons/icon-corporate.svg');
 }
 
-/* Icon content (using SVG masks) */
-.all-icon::before {
-  content: '';
-  display: block;
+.corporate-icon {
+  background-image: url('../../public/assets/custom-icons/icon-corporate.svg');
+}
+
+.finance-icon {
+  background-image: url('../../public/assets/custom-icons/icon-finance.svg');
+}
+
+.marketing-icon {
+  background-image: url('../../public/assets/custom-icons/icon-marketing.svg');
+}
+
+.jobsearch-icon {
+  background-image: url('../../public/assets/custom-icons/icon-jobsearch.svg');
+}
+
+.school-icon {
+  background-image: url('../../public/assets/custom-icons/icon-school.svg');
+}
+
+.portfolio-icon {
+  background-image: url('../../public/assets/custom-icons/icon-portfolio.svg');
+}
+
+.design-icon {
+  background-image: url('../../public/assets/custom-icons/icon-graphicdesign.svg');
+}
+
+.uiux-icon {
+  background-image: url('../../public/assets/custom-icons/icon-uiux.svg');
+}
+
+.resources-icon {
+  background-image: url('../../public/assets/custom-icons/icon-resources.svg');
+}
+/* Custom submit button and icon in navbar */
+.navbar-icon {
   width: 14px;
   height: 14px;
-  background-color: #333;
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'%3E%3C/path%3E%3Cpolyline points='9 22 9 12 15 12 15 22'%3E%3C/polyline%3E%3C/svg%3E");
-  mask-size: cover;
-  mask-repeat: no-repeat;
+  display: inline-block;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  vertical-align: middle;
 }
 
-.corporate-icon::before {
-  content: '';
-  display: block;
+.submit-icon {
+  background-image: url('../../public/assets/custom-icons/icon-submit.svg');
+  margin-right: 8px;
+}
+
+.submit-btn {
+  display: flex;
+  align-items: center;
+}
+.card-icon{
   width: 14px;
   height: 14px;
-  background-color: #000000;
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='2' width='16' height='20' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='12' y1='18' x2='12.01' y2='18'%3E%3C/line%3E%3C/svg%3E");
-  mask-size: cover;
-  mask-repeat: no-repeat;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+/* Tag icon using custom SVG */
+.tag-icon {
+  
+  background-image: url('../../public/assets/custom-icons/icon-tag.svg');
 }
 
-.finance-icon::before {
-  content: '';
-  display: block;
-  width: 14px;
-  height: 14px;
-  background-color: #000000;
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6'%3E%3C/path%3E%3C/svg%3E");
-  mask-size: cover;
-  mask-repeat: no-repeat;
+/* For mobile responsiveness - make sure icons display well on smaller screens */
+@media (max-width: 768px) {
+  .sidebar-icon {
+    width: 24px;
+    height: 24px;
+    background-size: 16px 16px;
+  }
+  
+  .navbar-icon {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .submit-btn span {
+    display: none;
+  }
+  
+  .submit-icon {
+    margin-right: 0;
+  }
 }
 
-.marketing-icon::before {
-  content: '';
-  display: block;
-  width: 14px;
-  height: 14px;
-  background-color: #000000;
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m18 8 4 4-4 4'/><path d='m2 12 16 0'/><path d='m2 17 12 0'/><path d='m2 7 9 0'/%3E%3C/svg%3E");
-  mask-size: cover;
-  mask-repeat: no-repeat;
-}
 
-.jobsearch-icon::before {
-  content: '';
-  display: block;
-  width: 14px;
-  height: 14px;
-  background-color: #000000;
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='7' width='20' height='14' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16'%3E%3C/path%3E%3C/svg%3E");
-  mask-size: cover;
-  mask-repeat: no-repeat;
-}
 
-.school-icon::before {
-  content: '';
-  display: block;
-  width: 14px;
-  height: 14px;
-  background-color: #000000;
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m20 6-8.5 8.5-6-6L2 12l8.5 8.5L22 10l-2-4ZM20 6l2 4'/><path d='M13.5 3.5 17 7'/><path d='M19.5 13.5 22 16'/><path d='M10 5 8 3'/><path d='M5 10 3 8'/><path d='m14 21-4-4'/><path d='m3 22 3-3'/%3E%3C/svg%3E");
-  mask-size: cover;
-  mask-repeat: no-repeat;
-}
-
-.portfolio-icon::before {
-  content: '';
-  display: block;
-  width: 14px;
-  height: 14px;
-  background-color: #000000;
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'%3E%3C/path%3E%3Ccircle cx='12' cy='7' r='4'%3E%3C/circle%3E%3C/svg%3E");
-  mask-size: cover;
-  mask-repeat: no-repeat;
-}
-
-.design-icon::before {
-  content: '';
-  display: block;
-  width: 14px;
-  height: 14px;
-  background-color: #000000;
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cpath d='M8 14s1.5 2 4 2 4-2 4-2'%3E%3C/path%3E%3Cline x1='9' y1='9' x2='9.01' y2='9'%3E%3C/line%3E%3Cline x1='15' y1='9' x2='15.01' y2='9'%3E%3C/line%3E%3C/svg%3E");
-  mask-size: cover;
-  mask-repeat: no-repeat;
-}
-
-.uiux-icon::before {
-  content: '';
-  display: block;
-  width: 14px;
-  height: 14px;
-  background-color: #000000;
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cpath d='M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14'%3E%3C/path%3E%3C/svg%3E");
-  mask-size: cover;
-  mask-repeat: no-repeat;
-}
-
-.resources-icon::before {
-  content: '';
-  display: block;
-  width: 14px;
-  height: 14px;
-  background-color: #000000;
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48'%3E%3C/path%3E%3C/svg%3E");
-  mask-size: cover;
-  mask-repeat: no-repeat;
-}
-
-.templates-icon::before {
-  content: '';
-  display: block;
-  width: 14px;
-  height: 14px;
-  background-color: #000000;
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z'%3E%3C/path%3E%3Cpolyline points='14 2 14 8 20 8'%3E%3C/polyline%3E%3Cpath d='M8 13h2'%3E%3C/path%3E%3Cpath d='M8 17h2'%3E%3C/path%3E%3Cpath d='M14 13h2'%3E%3C/path%3E%3Cpath d='M14 17h2'%3E%3C/path%3E%3C/svg%3E");
-  mask-size: cover;
-  mask-repeat: no-repeat;
-}
-
+/* Remove all the mask-image styles - you don't need them anymore */
 /* ========== CONTENT AREA ========== */
 .content-area {
   flex: 1;
@@ -1710,158 +1674,8 @@
   border-radius: 8px;
 }
 
-/* Icon styles */
-.sidebar-icon {
-  width: 28px;
-  height: 28px;
-  margin-right: 12px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
 
-/* Icon backgrounds */
-.all-icon {
-  background-color: #f3f4f6;
-}
 
-/* Business category icons */
-.corporate-icon,
-.finance-icon,
-.marketing-icon,
-.jobsearch-icon,
-.school-icon,
-.portfolio-icon,
-.design-icon,
-.uiux-icon,
-.resources-icon,
-.templates-icon {
-  background-color: #e3e3e3;
-}
-
-/* Icon content (using SVG masks) */
-.all-icon::before {
-  content: '';
-  display: block;
-  width: 14px;
-  height: 14px;
-  background-color: #333;
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'%3E%3C/path%3E%3Cpolyline points='9 22 9 12 15 12 15 22'%3E%3C/polyline%3E%3C/svg%3E");
-  mask-size: cover;
-  mask-repeat: no-repeat;
-}
-
-.corporate-icon::before {
-  content: '';
-  display: block;
-  width: 14px;
-  height: 14px;
-  background-color: #000000;
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='2' width='16' height='20' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='12' y1='18' x2='12.01' y2='18'%3E%3C/line%3E%3C/svg%3E");
-  mask-size: cover;
-  mask-repeat: no-repeat;
-}
-
-.finance-icon::before {
-  content: '';
-  display: block;
-  width: 14px;
-  height: 14px;
-  background-color: #000000;
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6'%3E%3C/path%3E%3C/svg%3E");
-  mask-size: cover;
-  mask-repeat: no-repeat;
-}
-
-.marketing-icon::before {
-  content: '';
-  display: block;
-  width: 14px;
-  height: 14px;
-  background-color: #000000;
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m18 8 4 4-4 4'/><path d='m2 12 16 0'/><path d='m2 17 12 0'/><path d='m2 7 9 0'/%3E%3C/svg%3E");
-  mask-size: cover;
-  mask-repeat: no-repeat;
-}
-
-.jobsearch-icon::before {
-  content: '';
-  display: block;
-  width: 14px;
-  height: 14px;
-  background-color: #000000;
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='7' width='20' height='14' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16'%3E%3C/path%3E%3C/svg%3E");
-  mask-size: cover;
-  mask-repeat: no-repeat;
-}
-
-.school-icon::before {
-  content: '';
-  display: block;
-  width: 14px;
-  height: 14px;
-  background-color: #000000;
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m20 6-8.5 8.5-6-6L2 12l8.5 8.5L22 10l-2-4ZM20 6l2 4'/><path d='M13.5 3.5 17 7'/><path d='M19.5 13.5 22 16'/><path d='M10 5 8 3'/><path d='M5 10 3 8'/><path d='m14 21-4-4'/><path d='m3 22 3-3'/%3E%3C/svg%3E");
-  mask-size: cover;
-  mask-repeat: no-repeat;
-}
-
-.portfolio-icon::before {
-  content: '';
-  display: block;
-  width: 14px;
-  height: 14px;
-  background-color: #000000;
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'%3E%3C/path%3E%3Ccircle cx='12' cy='7' r='4'%3E%3C/circle%3E%3C/svg%3E");
-  mask-size: cover;
-  mask-repeat: no-repeat;
-}
-
-.design-icon::before {
-  content: '';
-  display: block;
-  width: 14px;
-  height: 14px;
-  background-color: #000000;
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cpath d='M8 14s1.5 2 4 2 4-2 4-2'%3E%3C/path%3E%3Cline x1='9' y1='9' x2='9.01' y2='9'%3E%3C/line%3E%3Cline x1='15' y1='9' x2='15.01' y2='9'%3E%3C/line%3E%3C/svg%3E");
-  mask-size: cover;
-  mask-repeat: no-repeat;
-}
-
-.uiux-icon::before {
-  content: '';
-  display: block;
-  width: 14px;
-  height: 14px;
-  background-color: #000000;
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cpath d='M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14'%3E%3C/path%3E%3C/svg%3E");
-  mask-size: cover;
-  mask-repeat: no-repeat;
-}
-
-.resources-icon::before {
-  content: '';
-  display: block;
-  width: 14px;
-  height: 14px;
-  background-color: #000000;
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48'%3E%3C/path%3E%3C/svg%3E");
-  mask-size: cover;
-  mask-repeat: no-repeat;
-}
-
-.templates-icon::before {
-  content: '';
-  display: block;
-  width: 14px;
-  height: 14px;
-  background-color: #000000;
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z'%3E%3C/path%3E%3Cpolyline points='14 2 14 8 20 8'%3E%3C/polyline%3E%3Cpath d='M8 13h2'%3E%3C/path%3E%3Cpath d='M8 17h2'%3E%3C/path%3E%3Cpath d='M14 13h2'%3E%3C/path%3E%3Cpath d='M14 17h2'%3E%3C/path%3E%3C/svg%3E");
-  mask-size: cover;
-  mask-repeat: no-repeat;
-}
 
 /* ========== CONTENT AREA ========== */
 .content-area {
@@ -2175,12 +1989,6 @@
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 1rem;
-}
-
-.card-icon {
-  width: 28px;
-  height: 28px;
-  color: #6b7280;
 }
 
 .blog-icon {

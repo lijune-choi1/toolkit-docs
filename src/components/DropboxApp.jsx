@@ -553,7 +553,8 @@ filteredContent.map((item) => {
       <div className="card-meta">
         {item.category && (
           <span className="card-category">
-            <Tag size={14} />
+            {/* Custom Tag Icon */}
+            <div className="card-icon tag-icon"></div>
             {item.category}
           </span>
         )}
