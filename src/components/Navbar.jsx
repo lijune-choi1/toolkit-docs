@@ -1,4 +1,4 @@
-// src/components/Navbar.jsx - Updated with custom submit icon
+// src/components/Navbar.jsx - Updated with custom logo icon
 
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowLeft, Menu, RefreshCw, ChevronDown, Search, Check } from 'lucide-react';
@@ -121,7 +121,10 @@ const Navbar = ({
             >
               <ArrowLeft size={18} />
             </button>
-            <h1 className="app-title">{title || 'Toolkit+DesignerDocs'}</h1>
+            <div className="logo-container">
+              <div className="navbar-icon logo-icon"></div>
+              <h1 className="app-title">{title || 'Toolkit+DesignerDocs'}</h1>
+            </div>
           </div>
           
           <div className="header-center">
@@ -156,7 +159,10 @@ const Navbar = ({
     <header className="app-header">
       <div className="header-content">
         <div className="header-left">
-          <h1 className="app-title">Toolkit+DesignerDocs</h1>
+          <div className="logo-container">
+            <div className="navbar-icon logo-icon"></div>
+            <h1 className="app-title">DesignerDocs</h1>
+          </div>
         </div>
         
         <div className="header-center">

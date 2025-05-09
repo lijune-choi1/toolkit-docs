@@ -13,6 +13,91 @@
 }
 
 /* ========== HEADER ========== */
+/* Add these styles to your DropboxStyles.css file for the logo icon */
+
+/* Logo container and styling */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+/* Logo icon styling */
+.logo-icon {
+  width: 24px;
+  height: 24px;
+  background-image: url('../../public/assets/custom-icons/icon-logo.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+/* Update the app title styling to work well with the logo */
+.app-title {
+  font-family: "argent-pixel-cf", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #000000;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* Update navbar icon for consistency */
+.navbar-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  vertical-align: middle;
+}
+
+.submit-icon {
+  background-image: url('../../public/assets/custom-icons/icon-submit.svg');
+  margin-right: 8px;
+}
+
+.submit-btn {
+  display: flex;
+  align-items: center;
+}
+
+/* Make the logo slightly larger on larger screens */
+@media (min-width: 1024px) {
+  .logo-icon {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .app-title {
+    font-size: 1.3rem;
+  }
+}
+
+/* Adjust for smaller screens */
+@media (max-width: 768px) {
+  .logo-container {
+    gap: 6px;
+  }
+  
+  .logo-icon {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .app-title {
+    font-size: 1.1rem;
+  }
+}
+
+/* Very small screens might need title text adjustments */
+@media (max-width: 480px) {
+  .app-title {
+    font-size: 0.9rem;
+  }
+}
 .app-header, .card-view-header {
   background-color: white;
   border-bottom: 1px solid #e5e7eb;
