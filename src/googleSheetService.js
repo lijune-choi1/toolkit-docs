@@ -1,49 +1,39 @@
-// src/googleSheetService.js - Updated to support multiple sheets
+// src/googleSheetService.js - Updated to support all content types with link handling
 
 import Papa from 'papaparse';
 
-// Define URLs for each sheet (replace these with your actual published sheet URLs)
-const SHEET_URLS = {
-  blogs: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT7s-KEJOG_ui2rqMxpOF6KwgzTCjEeXdL4_cNLx4oXelGbWNhu9aCCYcu68qEJygVGsiI08TnvDXCQ/pub?gid=0&single=true&output=csv',
-  links: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT7s-KEJOG_ui2rqMxpOF6KwgzTCjEeXdL4_cNLx4oXelGbWNhu9aCCYcu68qEJygVGsiI08TnvDXCQ/pub?gid=680497028&single=true&output=csv',
-  pdfs: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT7s-KEJOG_ui2rqMxpOF6KwgzTCjEeXdL4_cNLx4oXelGbWNhu9aCCYcu68qEJygVGsiI08TnvDXCQ/pub?gid=401906266&single=true&output=csv'
-};
+// Define URL for the single sheet (replace with your actual published sheet URL)
+const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT7s-KEJOG_ui2rqMxpOF6KwgzTCjEeXdL4_cNLx4oXelGbWNhu9aCCYcu68qEJygVGsiI08TnvDXCQ/pub?gid=0&single=true&output=csv';
 
 // Disable caching
 const CACHE_DURATION = 0; 
 
-// Cache mechanism (separate caches for each content type)
+// Cache mechanism
 const cache = {
-  blogs: { data: null, timestamp: null },
-  links: { data: null, timestamp: null },
-  pdfs: { data: null, timestamp: null },
+  data: null,
+  timestamp: null,
 };
 
 /**
- * Generic function to fetch and parse data from any sheet
- * @param {string} sheetType - Which sheet to fetch (blogs, links, pdfs)
+ * Function to fetch and parse data from the sheet
  * @param {boolean} forceRefresh - Whether to bypass cache
  * @returns {Promise<Array>} - Array of objects from the sheet
  */
-const fetchSheetData = async (sheetType, forceRefresh = true) => {
-  if (!SHEET_URLS[sheetType]) {
-    throw new Error(`Unknown sheet type: ${sheetType}`);
-  }
-  
+const fetchSheetData = async (forceRefresh = true) => {
   // Use cache if available and not forcing refresh
   if (!forceRefresh && 
-      cache[sheetType].data && 
-      cache[sheetType].timestamp && 
-      (Date.now() - cache[sheetType].timestamp < CACHE_DURATION)) {
-    console.log(`Using cached ${sheetType} data`);
-    return cache[sheetType].data;
+      cache.data && 
+      cache.timestamp && 
+      (Date.now() - cache.timestamp < CACHE_DURATION)) {
+    console.log('Using cached data');
+    return cache.data;
   }
   
   // Add cache buster to URL
   const cacheBuster = `&_cb=${Date.now()}`;
-  const url = `${SHEET_URLS[sheetType]}${SHEET_URLS[sheetType].includes('?') ? '&' : '?'}_cb=${cacheBuster}`;
+  const url = `${SHEET_URL}${SHEET_URL.includes('?') ? '&' : '?'}_cb=${cacheBuster}`;
   
-  console.log(`Fetching ${sheetType} data from ${url}`);
+  console.log(`Fetching data from ${url}`);
   
   try {
     // Fetch with cache-busting headers
@@ -56,11 +46,11 @@ const fetchSheetData = async (sheetType, forceRefresh = true) => {
     });
     
     if (!response.ok) {
-      throw new Error(`Failed to fetch ${sheetType} data: ${response.status} ${response.statusText}`);
+      throw new Error(`Failed to fetch data: ${response.status} ${response.statusText}`);
     }
     
     const csvData = await response.text();
-    console.log(`Received ${sheetType} CSV data (first 100 chars):`, csvData.substring(0, 100));
+    console.log(`Received CSV data (first 100 chars):`, csvData.substring(0, 100));
     
     // Parse CSV
     const { data, errors, meta } = Papa.parse(csvData, {
@@ -70,24 +60,24 @@ const fetchSheetData = async (sheetType, forceRefresh = true) => {
     });
     
     if (errors.length > 0) {
-      console.warn(`CSV parsing errors for ${sheetType}:`, errors);
+      console.warn(`CSV parsing errors:`, errors);
     }
     
-    console.log(`${sheetType} CSV headers:`, meta.fields);
-    console.log(`Parsed ${sheetType} data rows:`, data.length);
+    console.log(`CSV headers:`, meta.fields);
+    console.log(`Parsed data rows:`, data.length);
     
     // Update cache
-    cache[sheetType].data = data;
-    cache[sheetType].timestamp = Date.now();
+    cache.data = data;
+    cache.timestamp = Date.now();
     
     return data;
   } catch (error) {
-    console.error(`Error fetching ${sheetType} data:`, error);
+    console.error(`Error fetching data:`, error);
     
     // Return cached data as fallback if available
-    if (cache[sheetType].data) {
-      console.log(`Returning cached ${sheetType} data as fallback`);
-      return cache[sheetType].data;
+    if (cache.data) {
+      console.log(`Returning cached data as fallback`);
+      return cache.data;
     }
     
     return [];
@@ -95,174 +85,134 @@ const fetchSheetData = async (sheetType, forceRefresh = true) => {
 };
 
 /**
- * Transform raw blog data into structured blog posts
- * @param {Array} data - Raw data from the blogs sheet
- * @returns {Array} - Structured blog posts
+ * Transform raw data into structured content items
+ * @param {Array} data - Raw data from the sheet
+ * @returns {Array} - Structured content items
  */
-const transformBlogData = (data) => {
+const transformData = (data) => {
   return data.map(row => {
-    // Make sure Category is properly handled
+    // Make sure Category and ContentType are properly handled
     const category = (row.Category || '').trim() || 'Uncategorized';
     const subcategory = (row.Subcategory || '').trim() || '';
+    
+    // FIXED: Ensure contentType is properly normalized and not empty
+    let contentType = 'Link'; // Default to Link if nothing specified
+    if (row.ContentType) {
+      contentType = row.ContentType.trim();
+      // Capitalize first letter for consistency
+      contentType = contentType.charAt(0).toUpperCase() + contentType.slice(1).toLowerCase();
+    }
     
     // Construct path
     let path;
     if (subcategory) {
-      path = `/${category}/${subcategory}/${row.Title || 'Untitled Post'}.post`;
+      path = `/${category}/${subcategory}/${row.Title || 'Untitled Item'}.${contentType.toLowerCase()}`;
     } else {
-      path = `/${category}/${row.Title || 'Untitled Post'}.post`;
+      path = `/${category}/${row.Title || 'Untitled Item'}.${contentType.toLowerCase()}`;
     }
     
-    return {
+    // Base properties that all content types have
+    const baseItem = {
       id: row.ID ? row.ID.toString() : Date.now().toString(),
-      title: row.Title || 'Untitled Post',
-      author: row.Author || 'Unknown Author',
-      date: row.Date || new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
-      category: category,
-      subcategory: subcategory,
-      body: row.Body || '<p>No content available</p>',
-      path: path,
-      contentType: 'blog',
-      
-      // Extended MDN-style fields
-      tags: row.Tags || '',
-      summary: row.Summary || '',
-      sections: row.Sections || '',
-      image: row.Image || '/api/placeholder/800/400',
-      imageCaption: row.ImageCaption || '',
-      lastUpdated: row.LastUpdated || row.Date || new Date().toLocaleDateString('en-US'),
-      contributors: row.Contributors || row.Author || 'Unknown Author',
-      level: row.Level || '',
-      requires: row.Requires || '',
-      specifications: row.Specifications || '',
-      compatibility: row.Compatibility || '',
-      seeAlso: row.SeeAlso || '',
-      related: row.Related || '',
-      resources: row.Resources || ''
-    };
-  });
-};
-
-/**
- * Transform raw link data into structured link objects
- * @param {Array} data - Raw data from the links sheet
- * @returns {Array} - Structured link objects
- */
-const transformLinkData = (data) => {
-  return data.map(row => {
-    const category = (row.Category || '').trim() || 'Uncategorized';
-    const subcategory = (row.Subcategory || '').trim() || '';
-    
-    let path;
-    if (subcategory) {
-      path = `/${category}/${subcategory}/${row.Title || 'Untitled Link'}.link`;
-    } else {
-      path = `/${category}/${row.Title || 'Untitled Link'}.link`;
-    }
-    
-    return {
-      id: row.ID ? row.ID.toString() : Date.now().toString(),
-      title: row.Title || 'Untitled Link',
-      url: row.URL || '',
+      title: row.Title || 'Untitled Item',
+      tagline: row.Tagline || '',
       description: row.Description || '',
+      contentType: contentType,
       category: category,
       subcategory: subcategory,
       tags: row.Tags || '',
-      date: row.Date || new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+      date: row.Date ? new Date(row.Date, 0).getFullYear() : new Date().getFullYear(),
       author: row.Author || 'Unknown',
       path: path,
-      contentType: 'link',
-      
-      // Additional fields specific to links
-      favicon: row.Favicon || '',
-      organization: row.Organization || '',
-      rating: row.Rating || null,
-      notes: row.Notes || ''
+      useCaseScenario: row["Use Case Scenario"] || '',
+      risdTip: row["RISD Tip"] || '',
+      pros: row.Pros || '',
+      cons: row.Cons || '',
+      platformInfo: row["Platform Info"] || '',
+      submittedBy: row["Submitted By"] || '',
+      image: row.Image || '/api/placeholder/400/300',
+      // Add URL to base item so it's available for all content types
+      url: row.URL || ''
     };
-  });
-};
-
-/**
- * Transform raw PDF data into structured PDF objects
- * @param {Array} data - Raw data from the PDFs sheet
- * @returns {Array} - Structured PDF objects
- */
-const transformPDFData = (data) => {
-  return data.map(row => {
-    const category = (row.Category || '').trim() || 'Uncategorized';
-    const subcategory = (row.Subcategory || '').trim() || '';
     
-    let path;
-    if (subcategory) {
-      path = `/${category}/${subcategory}/${row.Title || 'Untitled PDF'}.pdf`;
-    } else {
-      path = `/${category}/${row.Title || 'Untitled PDF'}.pdf`;
+    // Conditional properties based on content type
+    switch (contentType.toLowerCase()) {
+      case 'blog':
+        return {
+          ...baseItem,
+          body: row.Description || '<p>No content available</p>',
+        };
+      case 'link':
+        return {
+          ...baseItem,
+          // url is already in baseItem
+        };
+      case 'pdf':
+        return {
+          ...baseItem,
+          fileUrl: row.URL || '',
+          fileSize: 'Unknown',
+        };
+      case 'video':
+        return {
+          ...baseItem,
+          videoUrl: row.URL || '',
+          duration: row.Duration || 'Unknown',
+        };
+      case 'tool':
+        return {
+          ...baseItem,
+          toolUrl: row.URL || '',
+          toolType: row.ToolType || 'General',
+        };
+      case 'book':
+        return {
+          ...baseItem,
+          bookUrl: row.URL || '',
+          isbn: row.ISBN || '',
+          publisher: row.Publisher || '',
+        };
+      case 'article':
+        return {
+          ...baseItem,
+          articleUrl: row.URL || '',
+          publisher: row.Publisher || '',
+          publicationDate: row.PublicationDate || '',
+        };
+      case 'podcast':
+        return {
+          ...baseItem,
+          podcastUrl: row.URL || '',
+          host: row.Host || '',
+          episode: row.Episode || '',
+          duration: row.Duration || '',
+        };
+      case 'tweet':
+        return {
+          ...baseItem,
+          tweetUrl: row.URL || '',
+          username: row.Username || '',
+          tweetDate: row.TweetDate || '',
+        };
+      default:
+        return baseItem;
     }
-    
-    return {
-      id: row.ID ? row.ID.toString() : Date.now().toString(),
-      title: row.Title || 'Untitled PDF',
-      fileUrl: row.FileURL || '',
-      description: row.Description || '',
-      category: category,
-      subcategory: subcategory,
-      tags: row.Tags || '',
-      date: row.Date || new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
-      author: row.Author || 'Unknown',
-      path: path,
-      contentType: 'pdf',
-      
-      // Additional fields specific to PDFs
-      fileSize: row.FileSize || 'Unknown',
-      pageCount: row.PageCount || null,
-      thumbnailUrl: row.ThumbnailURL || '',
-      summary: row.Summary || ''
-    };
   });
 };
 
 /**
- * Fetch and transform blog posts
+ * Fetch and transform all content
  */
-export const fetchBlogPosts = async (forceRefresh = true) => {
-  const rawData = await fetchSheetData('blogs', forceRefresh);
-  return transformBlogData(rawData);
+export const fetchContent = async (forceRefresh = true) => {
+  const rawData = await fetchSheetData(forceRefresh);
+  return transformData(rawData);
 };
 
 /**
- * Fetch and transform links
- */
-export const fetchLinks = async (forceRefresh = true) => {
-  const rawData = await fetchSheetData('links', forceRefresh);
-  return transformLinkData(rawData);
-};
-
-/**
- * Fetch and transform PDFs
- */
-export const fetchPDFs = async (forceRefresh = true) => {
-  const rawData = await fetchSheetData('pdfs', forceRefresh);
-  return transformPDFData(rawData);
-};
-
-/**
- * Fetch all content types and merge them
- */
-export const fetchAllContent = async (forceRefresh = true) => {
-  const [blogs, links, pdfs] = await Promise.all([
-    fetchBlogPosts(forceRefresh),
-    fetchLinks(forceRefresh),
-    fetchPDFs(forceRefresh)
-  ]);
-  
-  return [...blogs, ...links, ...pdfs];
-};
-
-/**
- * Get unique categories across all content types
+ * Get unique categories across all content
  */
 export const getCategories = async (forceRefresh = true) => {
-  const allContent = await fetchAllContent(forceRefresh);
+  const allContent = await fetchContent(forceRefresh);
   
   const categories = [...new Set(allContent
     .map(item => item.category)
@@ -277,7 +227,7 @@ export const getCategories = async (forceRefresh = true) => {
  * Get all unique subcategories for a specific category
  */
 export const getSubcategories = async (category, forceRefresh = true) => {
-  const allContent = await fetchAllContent(forceRefresh);
+  const allContent = await fetchContent(forceRefresh);
   
   const subcategories = [...new Set(allContent
     .filter(item => item.category === category && item.subcategory)
@@ -293,7 +243,7 @@ export const getSubcategories = async (category, forceRefresh = true) => {
  * Gets a hierarchical structure of categories and subcategories
  */
 export const getCategoryHierarchy = async (forceRefresh = true) => {
-  const allContent = await fetchAllContent(forceRefresh);
+  const allContent = await fetchContent(forceRefresh);
   
   // Create a map to store hierarchical structure
   const hierarchy = {};
@@ -344,12 +294,10 @@ export const getCategoryHierarchy = async (forceRefresh = true) => {
 };
 
 /**
- * Clear all caches
+ * Clear the cache
  */
 export const clearCache = () => {
-  for (const key in cache) {
-    cache[key].data = null;
-    cache[key].timestamp = null;
-  }
-  console.log('All caches cleared');
+  cache.data = null;
+  cache.timestamp = null;
+  console.log('Cache cleared');
 };

@@ -1,219 +1,257 @@
 /* src/components/SubmitModal.css */
 
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    backdrop-filter: blur(2px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+}
+
+.submit-modal {
+  background-color: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 550px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  animation: modal-appear 0.3s ease-out;
+}
+
+@keyframes modal-appear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  font-family: "argent-pixel-cf", sans-serif;
+}
+
+.close-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #666;
+  transition: background-color 0.2s;
+  font-size: 24px;
+}
+
+.close-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #333;
+}
+
+.modal-content2 {
+  padding: 24px;
+}
+
+.modal-description {
+  color: #666;
+  margin-bottom: 24px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.promote-link {
+  display: block;
+  color: #1473e6;
+  text-decoration: none;
+  font-size: 15px;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+.promote-link:hover {
+  text-decoration: underline;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.form-input, 
+.form-textarea, 
+.form-select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+  color: #333;
+  background-color: #f9fafb;
+  transition: all 0.2s ease;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 40px;
+}
+
+.form-input:focus, 
+.form-textarea:focus, 
+.form-select:focus {
+  border-color: #000;
+  outline: none;
+  background-color: #fff;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+}
+
+.submission-notice {
+  color: #6b7280;
+  font-size: 14px;
+  margin: 24px 0;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f9fafb;
+  border-left: 3px solid #000;
+}
+
+.submit-button {
+  width: 100%;
+  background-color: #000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submit-button:hover {
+  background-color: #333;
+}
+
+.submit-button:disabled {
+  background-color: #d1d5db;
+  cursor: not-allowed;
+}
+
+.error-message {
+  background-color: #fef2f2;
+  color: #b91c1c;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  border-left: 3px solid #ef4444;
+}
+
+.success-message {
+  background-color: #ecfdf5;
+  color: #065f46;
+  padding: 24px;
+  border-radius: 8px;
+  margin: 16px 0;
+  text-align: center;
+  border: 1px solid #a7f3d0;
+  font-size: 16px;
+}
+
+.loading-message {
+  background-color: #f3f4f6;
+  padding: 24px;
+  border-radius: 8px;
+  margin: 16px 0;
+  text-align: center;
+  color: #6b7280;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loading-message::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid #e5e7eb;
+  border-top-color: #6b7280;
+  animation: spin 1s linear infinite;
+  margin-bottom: 12px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 640px) {
   .submit-modal {
-    background-color: white;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 500px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    animation: modal-appear 0.3s ease-out;
-  }
-  
-  @keyframes modal-appear {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    width: 95%;
+    border-radius: 10px;
+    max-height: 85vh;
   }
   
   .modal-header {
-    padding: 20px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #f0f0f0;
+    padding: 16px 20px;
   }
   
   .modal-header h2 {
-    margin: 0;
-    font-size: 24px;
-    font-weight: 600;
-    color: #333;
-  }
-  
-  .close-button {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    color: #666;
-    transition: background-color 0.2s;
-  }
-  
-  .close-button:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-    color: #333;
+    font-size: 20px;
   }
   
   .modal-content2 {
-    padding: 24px;
-  }
-  
-  .modal-description {
-    color: #666;
-    margin-bottom: 16px;
-    font-size: 14px;
-    line-height: 1.5;
-  }
-  
-  .promote-link {
-    display: block;
-    color: #1473e6;
-    text-decoration: none;
-    font-size: 15px;
-    margin-bottom: 24px;
-    font-weight: 500;
-  }
-  
-  .promote-link:hover {
-    text-decoration: underline;
-  }
-  
-  .form-group {
-    margin-bottom: 16px;
-  }
-  
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-  }
-  
-  .input-with-icon {
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
-  
-  .input-icon {
-    position: absolute;
-    left: 12px;
-    font-size: 16px;
-    color: #666;
+    padding: 16px 20px;
   }
   
   .form-input, 
   .form-textarea, 
   .form-select {
-    width: 100%;
-    padding: 12px 12px 12px 40px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
     font-size: 14px;
-    transition: border-color 0.2s;
-  }
-  
-  .form-textarea {
-    padding: 12px;
-    resize: vertical;
-    min-height: 80px;
-  }
-  
-  .form-select {
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h10L5 6z' fill='%23666'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    background-size: 10px;
-  }
-  
-  .form-input:focus, 
-  .form-textarea:focus, 
-  .form-select:focus {
-    border-color: #1473e6;
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(20, 115, 230, 0.1);
-  }
-  
-  .submission-notice {
-    color: #666;
-    font-size: 14px;
-    margin: 16px 0;
+    padding: 10px 12px;
   }
   
   .submit-button {
-    width: 100%;
-    background-color: #000;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 14px;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .submit-button:hover {
-    background-color: #333;
-  }
-  
-  .submit-button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-  
-  .error-message {
-    background-color: #fef1f1;
-    color: #e53e3e;
     padding: 12px;
-    border-radius: 6px;
-    margin-bottom: 16px;
-    font-size: 14px;
-    border-left: 3px solid #e53e3e;
+    font-size: 15px;
   }
-  
-  .success-message {
-    background-color: #f0fff4;
-    color: #38a169;
-    padding: 16px;
-    border-radius: 6px;
-    margin-top: 16px;
-    text-align: center;
-    border: 1px solid #c6f6d5;
-  }
-  
-  @media (max-width: 480px) {
-    .submit-modal {
-      width: 95%;
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-    
-    .modal-header {
-      padding: 16px;
-    }
-    
-    .modal-content {
-      padding: 16px;
-    }
-  }
+}

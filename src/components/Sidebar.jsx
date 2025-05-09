@@ -1,4 +1,4 @@
-// src/components/Sidebar.jsx - Corrected with proper categories
+// src/components/Sidebar.jsx - Updated with social media links opening in new tab
 
 import React from 'react';
 import './DropboxStyles.css';
@@ -268,15 +268,35 @@ const Sidebar = ({ currentPath, navigateToFolder, fileSystem }) => {
             );
           })
         )}
+      </div>
 
-        {/* Templates as a special item at the bottom */}
-        <button
-          className={`sidebar-nav-item ${currentPath === '/Templates' ? 'active' : ''}`}
-          onClick={() => navigateToFolder('/Templates')}
-        >
-          <div className="sidebar-icon templates-icon"></div>
-          <span>Templates</span>
-        </button>
+      {/* Social Media Links Footer */}
+      <div className="sidebar-footer">
+        <div className="social-links">
+          <a 
+            href="https://x.com/ts_designerdocs" 
+            className="social-link" 
+            aria-label="X (Twitter)" 
+            title="Follow us on X"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div className="social-icon x-icon"></div>
+          </a>
+          <a 
+            href="https://medium.com/@toolkitstudio0" 
+            className="social-link" 
+            aria-label="Medium" 
+            title="Follow us on Medium"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div className="social-icon medium-icon"></div>
+          </a>
+        </div>
+        <div className="sidebar-footer-text">
+          © 2025 ToolkitStudio
+        </div>
       </div>
     </div>
   );
