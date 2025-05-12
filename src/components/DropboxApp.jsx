@@ -154,18 +154,27 @@ const DropboxApp = () => {
     console.log('Selected category:', selectedCategory);
     console.log('Selected content types:', selectedContentTypes);
     
-    // Filter by search term
-    if (searchTerm) {
+    // Replace the filter by search term section in filterContent
+    if (searchTerm && searchTerm.trim().length > 0) {
+      const normalizedSearchTerm = searchTerm.toLowerCase().trim();
+      
       filtered = filtered.filter(item => {
-        const titleMatch = (item.title || '').toLowerCase().includes(searchTerm.toLowerCase());
-        const descriptionMatch = (item.description || '').toLowerCase().includes(searchTerm.toLowerCase());
-        const taglineMatch = (item.tagline || '').toLowerCase().includes(searchTerm.toLowerCase());
-        const tagsMatch = (item.tags || '').toLowerCase().includes(searchTerm.toLowerCase());
-        return titleMatch || descriptionMatch || taglineMatch || tagsMatch;
+        // Make sure all values are explicitly converted to strings
+        const title = String(item.title || '').toLowerCase();
+        const description = String(item.description || '').toLowerCase();
+        const tagline = String(item.tagline || '').toLowerCase();
+        const tags = String(item.tags || '').toLowerCase();
+        
+        return title.includes(normalizedSearchTerm) || 
+              description.includes(normalizedSearchTerm) || 
+              tagline.includes(normalizedSearchTerm) || 
+              tags.includes(normalizedSearchTerm);
       });
+      
       console.log('After search filter:', filtered.length, 'items');
+    } else {
+      console.log('No search term applied');
     }
-    
     // Filter by content type
     if (selectedContentTypes && selectedContentTypes.length > 0) {
       filtered = filtered.filter(item => {
