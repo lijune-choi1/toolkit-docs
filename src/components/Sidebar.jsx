@@ -1,256 +1,115 @@
-// src/components/Sidebar.jsx - Updated with social media links opening in new tab
+// src/components/Sidebar.jsx - Updated with dropdown categories and subcategories
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './DropboxStyles.css';
+import { getCategoryHierarchy } from '../googleSheetService';
 
 const Sidebar = ({ currentPath, navigateToFolder, fileSystem }) => {
-  // Get folders from fileSystem if available
-  const getFoldersFromFileSystem = () => {
-    if (!fileSystem || !fileSystem.children) {
-      return [];
-    }
-    return fileSystem.children
-      .filter(item => item.type === 'folder')
-      .map(folder => ({
-        name: folder.name,
-        path: folder.path,
-        active: currentPath === folder.path
-      }));
-  };
+  // State for category hierarchy and expanded categories
+  const [categoryHierarchy, setCategoryHierarchy] = useState({});
+  const [expandedCategories, setExpandedCategories] = useState({});
+  const [loading, setLoading] = useState(true);
 
-  // Define the categories structure based on your Dropbox structure
-  const mainCategories = [
-    { 
-      name: 'All', 
-      path: '/', 
-      icon: 'all',
-      active: currentPath === '/'
-    },
-    {
-      name: 'Business',
-      isHeader: true
-    },
-    { 
-      name: 'Corporate', 
-      path: '/Corporate', 
-      icon: 'corporate',
-      active: currentPath === '/Corporate'
-    },
-    { 
-      name: 'Finance', 
-      path: '/Finance', 
-      icon: 'finance',
-      active: currentPath === '/Finance'
-    },
-    { 
-      name: 'Marketing', 
-      path: '/Marketing', 
-      icon: 'marketing',
-      active: currentPath === '/Marketing'
-    },
-    {
-      name: 'Career Preparation',
-      isHeader: true
-    },
-    { 
-      name: 'Job Search', 
-      path: '/Job Search', 
-      icon: 'jobsearch',
-      active: currentPath === '/Job Search'
-    },
-    { 
-      name: 'Navigating School', 
-      path: '/Navigating School', 
-      icon: 'school',
-      active: currentPath === '/Navigating School'
-    },
-    { 
-      name: 'Portfolio', 
-      path: '/Portfolio', 
-      icon: 'portfolio',
-      active: currentPath === '/Portfolio'
-    },
-    {
-      name: 'Design',
-      isHeader: true
-    },
-    { 
-      name: 'Graphic Design', 
-      path: '/Graphic Design', 
-      icon: 'design',
-      active: currentPath === '/Graphic Design'
-    },
-    { 
-      name: 'UIUX', 
-      path: '/UIUX', 
-      icon: 'uiux',
-      active: currentPath === '/UIUX'
-    },
-    { 
-      name: 'Resources', 
-      path: '/Resources', 
-      icon: 'resources',
-      active: currentPath === '/Resources'
-    },
-    {
-      name: 'Templates',
-      isHeader: false,
-      path: '/Templates',
-      icon: 'templates',
-      active: currentPath === '/Templates'
-    }
-  ];
-
-  // Determine which list to use - dynamic from fileSystem or static
-  const categories = fileSystem && fileSystem.children && fileSystem.children.length > 0 
-    ? [{ name: 'All', path: '/', icon: 'all', active: currentPath === '/' }]
-    : mainCategories;
-
-  // Function to categorize folders into our main categories
-  const categorizeFolders = (folders) => {
-    // Initialize category structure
-    const categorized = {
-      'Business': [],
-      'Career Preparation': [],
-      'Design': [],
-      'Other': []
+  // Fetch category hierarchy on component mount
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        setLoading(true);
+        const hierarchy = await getCategoryHierarchy();
+        setCategoryHierarchy(hierarchy);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching category hierarchy:', error);
+        setLoading(false);
+      }
     };
 
-    // Categorize each folder
-    folders.forEach(folder => {
-      const name = folder.name.toLowerCase();
-      
-      if (name === 'corporate' || name === 'finance' || name === 'marketing') {
-        categorized['Business'].push(folder);
-      } 
-      else if (name === 'job search' || name === 'navigating school' || name === 'portfolio') {
-        categorized['Career Preparation'].push(folder);
-      }
-      else if (name === 'graphic design' || name === 'uiux' || name === 'resources') {
-        categorized['Design'].push(folder);
-      }
-      else {
-        categorized['Other'].push(folder);
-      }
-    });
+    fetchCategories();
+  }, []);
 
-    return categorized;
+  // Toggle category expansion
+  const toggleCategory = (categoryName) => {
+    setExpandedCategories(prev => ({
+      ...prev,
+      [categoryName]: !prev[categoryName]
+    }));
   };
 
-  // Get folders from the file system
-  const folders = getFoldersFromFileSystem();
-  const categorizedFolders = categorizeFolders(folders);
-
-  // Icon mapping
-  const iconMapping = {
-    'corporate': 'corporate',
-    'finance': 'finance',
-    'marketing': 'marketing',
-    'job search': 'jobsearch',
-    'navigating school': 'school',
-    'portfolio': 'portfolio',
-    'graphic design': 'design',
-    'uiux': 'uiux',
-    'resources': 'resources',
-    'templates': 'templates'
+  // Determine if a path is active
+  const isPathActive = (path) => {
+    return currentPath === path;
   };
 
-  // Function to render the icon based on category
-  const renderIcon = (folderName) => {
-    const iconKey = folderName.toLowerCase();
-    const iconClass = iconMapping[iconKey] || 'folder';
-    
-    return <div className={`sidebar-icon ${iconClass}-icon`}></div>;
+  // Function to render dropdown arrow based on expansion state
+
+
+  // Function to render dropdown arrow based on expansion state
+  const renderDropdownArrow = (categoryName) => {
+    const isExpanded = expandedCategories[categoryName];
+    return (
+      <img 
+        src="../assets/custom-icons/icon-arrow-up.svg" 
+        className={`dropdown-arrow ${isExpanded ? 'expanded' : 'collapsed'}`}
+      />
+    );
   };
 
   return (
     <div className="sidebar">
       <div className="sidebar-nav">
-        {/* All folders link */}
+        {/* All link */}
         <button
-          className={`sidebar-nav-item ${currentPath === '/' ? 'active' : ''}`}
+          className={`sidebar-nav-item ${isPathActive('/') ? 'active' : ''}`}
           onClick={() => navigateToFolder('/')}
         >
-          <div className="sidebar-icon all-icon"></div>
           <span>All</span>
         </button>
 
-        {/* If we have folders, render the categorized version */}
-        {folders.length > 0 ? (
-          <>
-            {/* Business category */}
-            {categorizedFolders['Business'].length > 0 && (
-              <>
-                <div className="sidebar-category-header">Business</div>
-                {categorizedFolders['Business'].map((folder, index) => (
-                  <button
-                    key={`business-${index}`}
-                    className={`sidebar-nav-item ${folder.active ? 'active' : ''}`}
-                    onClick={() => navigateToFolder(folder.path)}
-                  >
-                    {renderIcon(folder.name)}
-                    <span>{folder.name}</span>
-                  </button>
-                ))}
-              </>
-            )}
-
-            {/* Career Preparation category */}
-            {categorizedFolders['Career Preparation'].length > 0 && (
-              <>
-                <div className="sidebar-category-header">Career Preparation</div>
-                {categorizedFolders['Career Preparation'].map((folder, index) => (
-                  <button
-                    key={`career-${index}`}
-                    className={`sidebar-nav-item ${folder.active ? 'active' : ''}`}
-                    onClick={() => navigateToFolder(folder.path)}
-                  >
-                    {renderIcon(folder.name)}
-                    <span>{folder.name}</span>
-                  </button>
-                ))}
-              </>
-            )}
-
-            {/* Design category */}
-            {categorizedFolders['Design'].length > 0 && (
-              <>
-                <div className="sidebar-category-header">Design</div>
-                {categorizedFolders['Design'].map((folder, index) => (
-                  <button
-                    key={`design-${index}`}
-                    className={`sidebar-nav-item ${folder.active ? 'active' : ''}`}
-                    onClick={() => navigateToFolder(folder.path)}
-                  >
-                    {renderIcon(folder.name)}
-                    <span>{folder.name}</span>
-                  </button>
-                ))}
-              </>
-            )}
-
-           
-          </>
+        {loading ? (
+          <div className="loading-indicator">Loading categories...</div>
         ) : (
-          // Fallback to static categories if no folders exist
-          mainCategories.slice(1).map((category, index) => {
-            if (category.isHeader) {
-              return (
-                <div key={`header-${index}`} className="sidebar-category-header">
-                  {category.name}
-                </div>
-              );
-            }
+          // Render categories from hierarchy
+          Object.keys(categoryHierarchy).sort().map((categoryName) => {
+            const category = categoryHierarchy[categoryName];
+            const hasSubcategories = Object.keys(category.subcategories).length > 0;
+            const categoryPath = `/${categoryName}`;
             
             return (
-              <button
-                key={`nav-${index}`}
-                className={`sidebar-nav-item ${category.active ? 'active' : ''}`}
-                onClick={() => navigateToFolder(category.path)}
-              >
-                <div className={`sidebar-icon ${category.icon}-icon`}></div>
-                <span>{category.name}</span>
-              </button>
+              <div key={categoryName} className="category-container">
+                {/* Category header */}
+                <button
+                  className={`sidebar-nav-item category-header ${isPathActive(categoryPath) ? 'active' : ''}`}
+                  onClick={() => {
+                    if (hasSubcategories) {
+                      toggleCategory(categoryName);
+                    }
+                    navigateToFolder(categoryPath);
+                  }}
+                >
+                  <span>{categoryName}</span>
+                  {hasSubcategories && renderDropdownArrow(categoryName)}
+                </button>
+
+                {/* Subcategories (rendered only if category is expanded) */}
+                {hasSubcategories && expandedCategories[categoryName] && (
+                  <div className="subcategories-container">
+                    {Object.keys(category.subcategories).sort().map((subName) => {
+                      const subcategory = category.subcategories[subName];
+                      const subcategoryPath = `/${categoryName}/${subName}`;
+                      
+                      return (
+                        <button
+                          key={`${categoryName}-${subName}`}
+                          className={`sidebar-nav-item subcategory-item ${isPathActive(subcategoryPath) ? 'active' : ''}`}
+                          onClick={() => navigateToFolder(subcategoryPath)}
+                        >
+                          <span className="subcategory-label">{subName}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
             );
           })
         )}

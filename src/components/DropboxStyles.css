@@ -985,17 +985,92 @@
   width: 85%;
 }
 
-.sidebar-nav-item:hover {
-  background-color: #f3f4f6;
-  width: 85%;
-  border-radius: 8px;
+
+
+/* Add these styles to your DropboxStyles.css file */
+
+/* Category container styling */
+.category-container {
+  width: 100%;
 }
 
+/* Category header styling */
+.category-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-weight: 600;
+}
+
+/* Dropdown arrow styling */
+.dropdown-arrow {
+  width:10px;
+  margin-left: 8px;
+  font-size: 10px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.dropdown-arrow.expanded {
+  transform: rotate(180deg);
+}
+
+.dropdown-arrow.collapsed {
+  transform: rotate(0deg);
+}
+
+/* Subcategories container */
+.subcategories-container {
+  margin-left: 10px;
+  padding-left: 10px;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  animation: slideDown 0.3s ease-in-out;
+}
+
+/* Subcategory item styling */
+.subcategory-item {
+  padding-left: 16px !important;
+  font-size: 0.9em;
+  opacity: 0.9;
+}
+
+.subcategory-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Animation for showing subcategories */
+@keyframes slideDown {
+  from {
+    max-height: 0;
+    opacity: 0;
+  }
+  to {
+    max-height: 500px;
+    opacity: 1;
+  }
+}
+
+/* Loading indicator */
+.loading-indicator {
+  padding: 15px;
+  text-align: center;
+  color: #666;
+  font-style: italic;
+}
+
+/* Active state for sidebar items */
 .sidebar-nav-item.active {
-  background-color: #f3f4f6;
-  font-weight: 500;
-  width: 85%;
-  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.05);
+  font-weight: bold;
+  border-left: 1px solid #000000;
+}
+
+/* Hover effect for sidebar items */
+.sidebar-nav-item:hover {
+  background-color: rgba(0, 0, 0, 0.03);
 }
 
 /* Icon styles */
@@ -1740,6 +1815,7 @@
   cursor: pointer;
   font-size: 0.9375rem;
   color: #1f2937;
+
   transition: background-color 0.2s;
   border-radius: 0;
   margin-left: 1rem;
@@ -1748,13 +1824,6 @@
 
 .sidebar-nav-item:hover {
   background-color: #f3f4f6;
-  width: 85%;
-  border-radius: 8px;
-}
-
-.sidebar-nav-item.active {
-  background-color: #f3f4f6;
-  font-weight: 500;
   width: 85%;
   border-radius: 8px;
 }
@@ -2104,6 +2173,81 @@
   background-color: #f3f4f6;
   color: #6b7280;
 }
+/* Add these styles to your DropboxStyles.css file for the updated card layout */
+
+/* Remove author and date styles since they're no longer needed */
+
+/* Card tags styling - for the tags below description */
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.card-tag {
+  font-size: 0.75rem;
+  color: #4b5563;
+  background-color: #f3f4f6;
+  padding: 0.25rem 0.5rem;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Update category styling to be below description */
+.card-category-container {
+  margin-top: 0.5rem;
+}
+
+.card-category {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.8125rem;
+  color: #6b7280;
+  border: 1px solid #e5e7eb;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+/* Update card description to take more space */
+.card-description {
+  font-size: 0.95rem;
+  color: #4b5563;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Make sure content cards have proper spacing */
+.content-card {
+  background-color: rgb(249, 249, 249);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  height: 100%;
+  padding: 1.5rem;
+  transition: 0.5s;
+}
+
+/* Make sure content type badge is prominent */
+.content-type-badge {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  background-color: #f3f4f6;
+  color: #6b7280;
+}
 
 .card-title {
   font-family: "argent-pixel-cf", sans-serif;
@@ -2133,7 +2277,6 @@
 }
 
 .card-category {
-  display: flex;
   align-items: center;
   gap: 0.25rem;
 }

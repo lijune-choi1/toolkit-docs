@@ -1,4 +1,4 @@
-// src/components/DropboxApp.jsx - Updated to use single sheet format and ContentModal
+// src/components/DropboxApp.jsx - Updated with improved filtering for subcategories and content types
 
 import React, { useState, useEffect } from 'react';
 import { FileDown, Link, Tag, Download, Menu } from 'lucide-react';
@@ -23,14 +23,14 @@ const DropboxApp = () => {
   const [currentPath, setCurrentPath] = useState('/');
   const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
   const [contentTypes, setContentTypes] = useState([]);
-  const [selectedContentType, setSelectedContentType] = useState(null);
-  
+  const [selectedContentTypes, setSelectedContentTypes] = useState([]);
+
   // Load content when component mounts
   useEffect(() => {
     loadContent();
   }, []);
 
-    // Add this to your useEffect after loading content
+  // Extract unique content types after loading content
   useEffect(() => {
     if (allContent.length > 0) {
       // Extract unique content types
@@ -44,6 +44,7 @@ const DropboxApp = () => {
     }
   }, [allContent]);
   
+  // Trigger content filtering when filters change
   useEffect(() => {
     if (allContent.length > 0) {
       // Log content types before filtering
@@ -53,7 +54,7 @@ const DropboxApp = () => {
       }, {});
       
       console.log('Content types before filtering:', contentTypeCount);
-      console.log('Selected content type:', selectedContentType); // Optional: add this for debugging
+      console.log('Selected content types:', selectedContentTypes);
       
       // Small delay to ensure state is updated
       const timeoutId = setTimeout(() => {
@@ -62,7 +63,7 @@ const DropboxApp = () => {
       
       return () => clearTimeout(timeoutId);
     }
-  }, [searchTerm, selectedCategory, allContent, currentPath, selectedContentType]); // Added selectedContentType
+  }, [searchTerm, selectedCategory, allContent, currentPath, selectedContentTypes]);
   
   // Function to load all content
   const loadContent = async (forceRefresh = false) => {
@@ -138,6 +139,7 @@ const DropboxApp = () => {
     }
   };
   
+  // Improved filterContent function with better subcategory support
   const filterContent = (contentToFilter = null) => {
     let filtered = contentToFilter || [...allContent];
     
@@ -150,7 +152,7 @@ const DropboxApp = () => {
     console.log('Starting filtering with', filtered.length, 'items');
     console.log('Current path:', currentPath);
     console.log('Selected category:', selectedCategory);
-    console.log('Selected content type:', selectedContentType);
+    console.log('Selected content types:', selectedContentTypes);
     
     // Filter by search term
     if (searchTerm) {
@@ -165,31 +167,53 @@ const DropboxApp = () => {
     }
     
     // Filter by content type
-    if (selectedContentType) {
+    if (selectedContentTypes && selectedContentTypes.length > 0) {
       filtered = filtered.filter(item => {
-        return item.contentType && item.contentType.toLowerCase() === selectedContentType.toLowerCase();
+        return item.contentType && selectedContentTypes.some(type => 
+          type.toLowerCase() === item.contentType.toLowerCase()
+        );
       });
       console.log('After content type filter:', filtered.length, 'items');
     }
     
-    // Filter by selected category (from dropdown or sidebar)
+    // Filter by selected category or subcategory (path-based)
     if (currentPath !== '/') {
-      // Extract category name from path
-      const pathCategory = currentPath.split('/')[1];
-      console.log('Filtering by path category:', pathCategory);
+      // Split path into segments to handle both category and subcategory
+      const pathSegments = currentPath.split('/').filter(segment => segment);
+      console.log('Path segments:', pathSegments);
       
-      // Filter content based on the path category using case-insensitive comparison
-      filtered = filtered.filter(item => {
-        const itemCategory = normalizeCategory((item.category || '').toLowerCase());
-        const searchCategory = normalizeCategory(pathCategory.toLowerCase());
+      // If we have at least one segment, it's a category
+      if (pathSegments.length >= 1) {
+        const pathCategory = pathSegments[0];
+        console.log('Filtering by path category:', pathCategory);
         
-        const matches = itemCategory === searchCategory ||
-          (specialCategoryMappings[itemCategory] === searchCategory) ||
-          (specialCategoryMappings[searchCategory] === itemCategory);
+        // Filter by category
+        filtered = filtered.filter(item => {
+          const itemCategory = normalizeCategory((item.category || '').toLowerCase());
+          const searchCategory = normalizeCategory(pathCategory.toLowerCase());
+          
+          const categoryMatches = itemCategory === searchCategory ||
+            (specialCategoryMappings[itemCategory] === searchCategory) ||
+            (specialCategoryMappings[searchCategory] === itemCategory);
+          
+          return categoryMatches;
+        });
+        console.log('After category filter:', filtered.length, 'items');
         
-        return matches;
-      });
-      console.log('After category filter:', filtered.length, 'items');
+        // If we have two segments, it's a subcategory
+        if (pathSegments.length >= 2) {
+          const subcategory = pathSegments[1];
+          console.log('Filtering by subcategory:', subcategory);
+          
+          // Filter by subcategory (check item.subcategory field)
+          filtered = filtered.filter(item => {
+            // Check both subcategory and subCategory fields (to handle possible variations)
+            const itemSubcategory = (item.subcategory || item.subCategory || '').toLowerCase();
+            return normalizeCategory(itemSubcategory) === normalizeCategory(subcategory.toLowerCase());
+          });
+          console.log('After subcategory filter:', filtered.length, 'items');
+        }
+      }
     } else if (selectedCategory) {
       // Dropdown filter takes precedence when at root
       console.log('Filtering by dropdown category:', selectedCategory);
@@ -214,6 +238,7 @@ const DropboxApp = () => {
     setFilteredContent(filtered);
   };
 
+  // Category name mapping to handle variations in naming
   const specialCategoryMappings = {
     // Proper casing and spacing variations
     'navigatingschool': 'navigating school',
@@ -289,10 +314,14 @@ const DropboxApp = () => {
   const getContentIcon = (contentType) => {
     switch (contentType) {
       case 'blog':
+      case 'Blog':
         return <div className="card-icon blog-icon"></div>;
       case 'link':
+      case 'Link':
         return <Link className="card-icon" size={24} />;
       case 'pdf':
+      case 'Pdf':
+      case 'PDF':
         return <FileDown className="card-icon" size={24} style={{color: '#dc2626'}} />;
       default:
         return null;
@@ -429,21 +458,21 @@ const DropboxApp = () => {
       
       {/* Use the Navbar component */}
       <Navbar 
-      currentPath={currentPath}
-      navigateUp={navigateUp}
-      navigateToFolder={handleNavigateToFolder}
-      searchTerm={searchTerm}
-      setSearchTerm={setSearchTerm}
-      viewMode={viewMode}
-      setViewMode={setViewMode}
-      refreshContent={refreshContent}
-      forceCompleteRefresh={forceCompleteRefresh}
-      refreshing={refreshing}
-      renderBreadcrumbs={renderBreadcrumbs}
-      contentTypes={contentTypes}
-      selectedContentType={selectedContentType}
-      setSelectedContentType={setSelectedContentType}
-    />
+        currentPath={currentPath}
+        navigateUp={navigateUp}
+        navigateToFolder={handleNavigateToFolder}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        viewMode={viewMode}
+        setViewMode={setViewMode}
+        refreshContent={refreshContent}
+        forceCompleteRefresh={forceCompleteRefresh}
+        refreshing={refreshing}
+        renderBreadcrumbs={renderBreadcrumbs}
+        contentTypes={contentTypes}
+        selectedContentTypes={selectedContentTypes}
+        setSelectedContentTypes={setSelectedContentTypes}
+      />
       
       {/* Main content */}
       <div className="main-content">
@@ -484,10 +513,10 @@ const DropboxApp = () => {
               </div>
             )}
             
-            {/* Display current category if one is selected */}
+            {/* Display current category/subcategory if one is selected */}
             {currentPath !== '/' && (
               <h2 className="selected-category-heading">
-                {currentPath.split('/')[1]}
+                {currentPath.split('/').filter(segment => segment).join(' > ')}
               </h2>
             )}
             
@@ -499,87 +528,72 @@ const DropboxApp = () => {
                     <p>{searchTerm || currentPath !== '/' ? 'No items match your selection' : 'No content available'}</p>
                   </div>
                 ) : (
-                  // This is a section to update in DropboxApp.jsx to show link preview/button for all content types
-
-// Updated card component for DropboxApp.jsx with author information and highlight
-
-// Replace the current card rendering in the filteredContent.map() function with this:
-
-filteredContent.map((item) => {
-  // Determine card style based on content type
-  let cardClass = "content-card";
-  if (item.contentType === 'Blog') cardClass += " blog-card";
-  if (item.contentType === 'Link') cardClass += " link-card";
-  if (item.contentType === 'Pdf') cardClass += " pdf-card";
-  
-  // Get URL - look for different URL properties
-  const url = item.url || item.fileUrl || item.videoUrl || item.toolUrl || 
-              item.bookUrl || item.articleUrl || item.podcastUrl || item.tweetUrl;
-  
-  // Check if author is Toolkit Studio for special styling
-  const isToolkitStudio = (item.author && 
-    (item.author.toLowerCase() === 'toolkit studio' || 
-    item.author.toLowerCase() === 'toolkitstudio'));
-  
-  return (
-    <div 
-      key={item.id}
-      className={cardClass}
-      onClick={() => handleItemClick(item)}
-    >
-      <div className="card-header">
-        {/* Icon based on content type or favicon */}
-        {url ? (
-          <img 
-            src={getLinkFavicon(url)} 
-            alt="" 
-            className="link-favicon" 
-          />
-        ) : (
-          getContentIcon(item.contentType)
-        )}
-        
-        <div className="card-badges">
-          <span className="content-type-badge">{item.contentType}</span>
-        </div>
-      </div>
-      
-      <h3 className="card-title">{item.title}</h3>
-      
-      {item.tagline && (
-        <p className="card-tagline">{item.tagline}</p>
-      )}
-      
-      <div className="card-meta">
-        {item.category && (
-          <span className="card-category">
-            {/* Custom Tag Icon */}
-            <div className="card-icon tag-icon"></div>
-            {item.category}
-          </span>
-        )}
-        
-        {/* Author badge - special styling for Toolkit Studio */}
-        {item.author && (
-          <span className={`card-author ${isToolkitStudio ? 'author-studio' : ''}`}>
-            {isToolkitStudio && <span className="studio-badge">★</span>}
-            {item.author}
-          </span>
-        )}
-        
-        {item.date && (
-          <span className="card-date">{item.date}</span>
-        )}
-      </div>
-      
-      {item.description && (
-        <p className="card-description">{item.description}</p>
-      )}
-      
-      
-    </div>
-  );
-})
+                  filteredContent.map((item) => {
+                    // Determine card style based on content type
+                    let cardClass = "content-card";
+                    if (item.contentType === 'Blog') cardClass += " blog-card";
+                    if (item.contentType === 'Link') cardClass += " link-card";
+                    if (item.contentType === 'Pdf' || item.contentType === 'PDF') cardClass += " pdf-card";
+                    
+                    // Get URL - look for different URL properties
+                    const url = item.url || item.fileUrl || item.videoUrl || item.toolUrl || 
+                              item.bookUrl || item.articleUrl || item.podcastUrl || item.tweetUrl;
+                    
+                    return (
+                      <div 
+                        key={item.id}
+                        className={cardClass}
+                        onClick={() => handleItemClick(item)}
+                      >
+                        <div className="card-header">
+                          {/* Icon based on content type or favicon */}
+                          {url ? (
+                            <img 
+                              src={getLinkFavicon(url)} 
+                              alt="" 
+                              className="link-favicon" 
+                            />
+                          ) : (
+                            getContentIcon(item.contentType)
+                          )}
+                          
+                          <div className="card-badges">
+                            <span className="content-type-badge">{item.contentType}</span>
+                          </div>
+                        </div>
+                        
+                        <h3 className="card-title">{item.title}</h3>
+                        
+                        {item.tagline && (
+                          <p className="card-tagline">{item.tagline}</p>
+                        )}
+                        
+                        {item.description && (
+                          <p className="card-description">{item.description}</p>
+                        )}
+                        
+                        {/* Tags section - moved below description */}
+                        {item.tags && (
+                          <div className="card-tags">
+                            {item.tags.split(',').map((tag, index) => (
+                              <span key={index} className="card-tag">
+                                {tag.trim()}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                        
+                        {/* Category displayed as a tag */}
+                        {item.category && (
+                          <div className="card-category-container">
+                            <span className="card-category">
+                              {item.category}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })
                 )}
               </div>
             ) : (
@@ -597,39 +611,47 @@ filteredContent.map((item) => {
                     <p>{searchTerm || currentPath !== '/' ? 'No items match your selection' : 'No content available'}</p>
                   </div>
                 ) : (
-                  filteredContent.map((item) => (
-                    <div 
-                      key={item.id}
-                      className="file-item"
-                      onClick={() => handleItemClick(item)}
-                    >
-                      <div className="file-name">
-                        {item.contentType === 'link' && item.url ? (
-                          <img 
-                            src={getLinkFavicon(item.url)} 
-                            alt="" 
-                            className="link-favicon" 
-                            style={{ marginRight: '0.75rem' }}
-                          />
-                        ) : (
-                          getContentIcon(item.contentType)
-                        )}
-                        <span>{item.title}</span>
-                      </div>
-                      <div className="file-type">{item.contentType}</div>
-                      <div className="file-category">{item.category}</div>
-                      <div className="file-modified">{item.date || '--'}</div>
-                      <div className="file-actions">
-                        <button className="btn btn-small">
-                          {item.contentType === 'pdf' ? (
-                            <Download size={16} />
+                  filteredContent.map((item) => {
+                    // Determine list item style based on content type
+                    let itemClass = "list-item";
+                    if (item.contentType === 'Blog') itemClass += " blog-item";
+                    if (item.contentType === 'Link') itemClass += " link-item";
+                    if (item.contentType === 'Pdf' || item.contentType === 'PDF') itemClass += " pdf-item";
+                    
+                    // Get URL - look for different URL properties
+                    const url = item.url || item.fileUrl || item.videoUrl || item.toolUrl || 
+                                item.bookUrl || item.articleUrl || item.podcastUrl || item.tweetUrl;
+                    
+                    return (
+                      <div 
+                        key={item.id}
+                        className={itemClass}
+                        onClick={() => handleItemClick(item)}
+                      >
+                        <div className="list-item-name">
+                          {/* Icon based on content type or favicon */}
+                          {url ? (
+                            <img 
+                              src={getLinkFavicon(url)} 
+                              alt="" 
+                              className="list-favicon" 
+                            />
                           ) : (
-                            <span>View</span>
+                            getContentIcon(item.contentType)
                           )}
-                        </button>
+                          <span>{item.title}</span>
+                        </div>
+                        <div className="list-item-type">{item.contentType}</div>
+                        <div className="list-item-category">{item.category}</div>
+                        <div className="list-item-modified">{item.dateAdded || 'Unknown'}</div>
+                        <div className="list-item-actions">
+                          <button className="btn btn-small">
+                            <Download size={16} />
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  ))
+                    );
+                  })
                 )}
               </div>
             )}

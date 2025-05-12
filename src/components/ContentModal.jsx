@@ -369,7 +369,7 @@ const ContentModal = ({ content, onClose }) => {
                 
                 {currentContent.category && (
                   <span className="category-tag">
-                    🏷️ {currentContent.category}
+                     {currentContent.category}
                     {currentContent.subcategory && <> &gt; {currentContent.subcategory}</>}
                   </span>
                 )}
@@ -408,7 +408,6 @@ const ContentModal = ({ content, onClose }) => {
                     >
                       <div className="preview-overlay">
                         <span className="preview-visit-text">{getActionButtonText()}</span>
-                        <span>↗️</span>
                       </div>
                     </a>
                   </div>
